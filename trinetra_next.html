@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no,viewport-fit=cover"/>
+<title>🔱 TRINETR · PRO MASTER</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+<style>
+/* ═══════════════════════════════════════════
+   GLOBAL RESET
+═══════════════════════════════════════════ */
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+:root{
+  --gold:#ffd700; --bg:#030712; --card:#0f1425;
+  --green:#2ecc71; --red:#e74c3c; --border:#2a345a;
+  --accent:#ff9800; --nav-h:68px;
+}
+html,body{height:100%;overflow:hidden;}
+body{
+  background:var(--bg);height:100dvh;width:100%;
+  display:flex;flex-direction:column;color:white;
+  font-family:'Segoe UI',sans-serif;
+  max-width:480px;margin:0 auto;
+}
+
+/* ═══════════════════════════════════════════
+   PAGE SYSTEM
+═══════════════════════════════════════════ */
+.page{display:none;flex-direction:column;flex:1;overflow:hidden;position:relative;}
+.page.active{display:flex;}
+
+/* ═══════════════════════════════════════════
+   BOTTOM NAV (shared across all pages)
+═══════════════════════════════════════════ */
+#bnav{
+  height:var(--nav-h);background:#0a0f1c;
+  display:flex;border-top:2.5px solid var(--gold);
+  position:relative;flex-shrink:0;z-index:100;
+}
+#bnav.hidden{display:none;}
+.nb{
+  flex:1;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  background:transparent;border:none;cursor:pointer;
+  color:#555;text-decoration:none;transition:color .15s;
+  padding:0;
+}
+.nb.on{color:var(--gold);}
+.nb .ni{font-size:24px;margin-bottom:2px;line-height:1;}
+.nb .nt{font-size:9px;font-weight:900;letter-spacing:.5px;}
+
+/* ═══════════════════════════════════════════
+   LOGIN PAGE
+═══════════════════════════════════════════ */
+#pg-login{background:#030712;align-items:center;justify-content:center;}
+.login-wrap{
+  width:88%;max-width:340px;
+  background:#0f1425;border:2px solid var(--gold);
+  padding:36px 24px 28px;
+}
+.login-logo{text-align:center;margin-bottom:28px;}
+.login-logo .t1{color:var(--gold);font-size:26px;font-weight:900;letter-spacing:4px;}
+.login-logo .t2{color:#8a9fd8;font-size:8px;letter-spacing:3px;margin-top:3px;}
+.login-logo .sep{width:50px;height:2px;background:var(--gold);margin:10px auto 0;}
+.finput{
+  width:100%;background:#030712;border:1px solid var(--border);
+  padding:11px 12px;color:white;font-family:'Segoe UI',sans-serif;
+  font-size:13px;margin-bottom:10px;outline:none;transition:border-color .2s;
+}
+.finput:focus{border-color:var(--gold);}
+.finput::placeholder{color:#555;}
+.login-btn{
+  width:100%;background:var(--gold);color:#000;
+  border:none;padding:13px;font-weight:900;
+  font-size:14px;letter-spacing:2px;cursor:pointer;margin-top:4px;
+}
+.login-btn:active{opacity:.8;}
+.login-err{color:var(--red);font-size:9px;text-align:center;margin-top:8px;min-height:14px;}
+.login-hint{color:#555;font-size:8px;text-align:center;margin-top:10px;}
+
+/* ═══════════════════════════════════════════
+   HOME PAGE — ORIGINAL DESIGN PRESERVED
+═══════════════════════════════════════════ */
+/* 1. News ticker */
+.news-ticker{
+  height:32px;background:#0a0e1a;
+  border-bottom:1.5px solid var(--gold);
+  display:flex;align-items:center;flex-shrink:0;
+}
+marquee{font-size:11px;color:var(--gold);font-weight:bold;}
+
+/* 2. Logo */
+.home-header{
+  height:45px;display:flex;align-items:center;
+  justify-content:center;flex-shrink:0;
+}
+.logo{
+  border:1.5px solid var(--gold);padding:4px 30px;
+  font-size:16px;font-weight:900;color:var(--gold);letter-spacing:4px;
+}
+
+/* 3. Top stats */
+.top-stats{
+  height:70px;display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:6px;padding:0 10px;flex-shrink:0;
+}
+.stat-box{
+  background:#0c1122;border:1.2px solid var(--border);
+  display:flex;flex-direction:column;
+  justify-content:center;text-align:center;border-radius:4px;
+}
+.stat-label{font-size:8px;color:#8a9fd8;font-weight:bold;}
+.stat-val{font-size:11px;font-weight:bold;color:white;}
+.profile-link{border:1.2px solid var(--gold);color:var(--gold);cursor:pointer;}
+
+/* 4. Entry desk */
+.entry-section{height:90px;padding:0 10px;margin-top:5px;flex-shrink:0;}
+.entry-card{
+  background:#0a0f1c;border:1.5px solid var(--border);
+  height:100%;padding:5px;
+  display:flex;flex-direction:column;justify-content:space-around;border-radius:4px;
+}
+.entry-row{display:flex;gap:4px;align-items:center;}
+.symbol{
+  background:#1e2a4a;border:1px solid var(--gold);color:var(--gold);
+  font-size:9px;padding:4px 2px;min-width:65px;
+  text-align:center;font-weight:bold;
+}
+.p-chip{background:#0f1428;border:1px solid #ffd70015;display:flex;flex-direction:column;align-items:center;flex:1;padding:2px 0;}
+.p-label{font-size:6px;color:#8a9fd8;font-weight:800;}
+.p-val{font-size:9px;font-weight:bold;color:var(--gold);}
+
+/* 5. Sector grid */
+.sector-section{flex:1;padding:5px 10px 4px 10px;display:flex;align-items:flex-start;overflow:hidden;}
+.sector-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  grid-template-rows:repeat(6,1fr);
+  gap:4px;height:100%;width:100%;
+}
+.sbox{
+  border:1px solid var(--border);
+  display:flex;flex-direction:column;
+  justify-content:center;align-items:center;
+  cursor:pointer;border-radius:3px;padding:2px 0;
+}
+.sbox.bullish{background:#064e3b35;border-color:var(--green);}
+.sbox.bearish{background:#7f1d1d35;border-color:var(--red);}
+.sbox.neutral{background:#0c1122;border-color:var(--border);}
+.box-name{font-size:9px;font-weight:900;color:#fff;text-transform:uppercase;}
+.box-data{font-size:8px;font-weight:bold;margin-top:1px;}
+
+/* Sector popup sheet */
+.sheet{
+  position:fixed;bottom:-100%;left:0;width:100%;height:55%;
+  background:#0f172a;border-top:4px solid var(--gold);
+  transition:.3s cubic-bezier(0,0,.2,1);z-index:500;
+  padding:20px;border-radius:20px 20px 0 0;
+  max-width:480px;
+}
+.sheet.open{bottom:0;}
+.done-btn{
+  background:var(--gold);color:black;padding:4px 15px;
+  border-radius:4px;font-weight:bold;cursor:pointer;border:none;
+}
+
+/* ═══════════════════════════════════════════
+   SIGNAL PAGE (TRISHUL DASHBOARD)
+═══════════════════════════════════════════ */
+#pg-signal{background:#000;}
+#pg-signal .sig-hdr{
+  padding:10px;text-align:center;
+  border-bottom:2px solid var(--gold);background:#000;flex-shrink:0;
+}
+#pg-signal .sig-hdr h1{font-size:15px;color:var(--gold);text-transform:uppercase;letter-spacing:2px;font-weight:900;}
+.signal-grid{
+  flex:1;display:grid;grid-template-rows:repeat(3,1fr);
+  gap:6px;padding:7px;overflow:hidden;
+}
+.row-3{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;}
+.sigbox{
+  background:#0c0c0c;border:1.5px solid var(--gold);
+  display:flex;flex-direction:column;justify-content:center;
+  align-items:center;text-align:center;cursor:pointer;padding:6px 4px;
+  transition:all .15s;
+}
+.sigbox:active{background:#1a1200;transform:scale(.97);}
+.sigbox i{font-size:22px;color:var(--gold);margin-bottom:5px;}
+.b-lbl{font-size:7px;color:var(--gold);font-weight:900;margin-bottom:3px;letter-spacing:.8px;opacity:.85;}
+.b-val{font-size:10.5px;font-weight:900;color:white;}
+.split-box{padding:0!important;}
+.split-half{width:100%;height:50%;display:flex;flex-direction:column;justify-content:center;align-items:center;cursor:pointer;}
+.split-half:active{background:#1a1200;}
+.split-sep{width:85%;height:1px;background:var(--gold);opacity:.3;}
+
+/* Signal detail */
+#pg-sig-detail{background:#000;}
+.info-header{background:#111;margin:8px;padding:12px;border:1px solid var(--accent);text-align:center;flex-shrink:0;}
+.info-header h2{font-size:13px;text-transform:uppercase;color:var(--accent);}
+.stats-row{display:flex;justify-content:space-around;padding-top:8px;border-top:1px solid #222;margin-top:6px;}
+.v-item{display:grid;grid-template-columns:1.2fr 1px 1fr 1px 1.2fr;background:#0c0c0c;border:1px solid #1f1f1f;margin-bottom:7px;height:60px;align-items:center;}
+.v-cut{width:1px;height:38px;background:#1f1f1f;}
+.cell{text-align:center;padding:4px;}
+.st-name{font-size:11px;font-weight:900;}
+.st-price{font-size:12px;font-weight:900;}
+.st-tag{font-size:8px;padding:3px 7px;color:#fff;font-weight:900;}
+.bg-up{background:#00c853!important;}.bg-down{background:#ff3d00!important;}
+.up{color:#00c853!important;}.down{color:#ff3d00!important;}
+.btn-back{background:var(--accent);color:#000;border:none;padding:14px;font-weight:900;font-size:12px;letter-spacing:1px;cursor:pointer;width:100%;flex-shrink:0;}
+
+/* ═══════════════════════════════════════════
+   WATCHLIST PAGE — ORIGINAL DESIGN
+═══════════════════════════════════════════ */
+#pg-watch{background:#000;}
+.top-patti{
+  background:#111;color:var(--gold);
+  text-align:center;padding:12px 0;
+  font-size:16px;font-weight:900;
+  border-bottom:1.5px solid var(--gold);flex-shrink:0;
+}
+.wl-table-wrap{flex:1;overflow-y:auto;overflow-x:hidden;}
+.wl-table-wrap::-webkit-scrollbar{width:2px;}
+.wl-table-wrap::-webkit-scrollbar-thumb{background:#222;}
+table{width:100%;border-collapse:collapse;font-size:11px;table-layout:fixed;}
+th{background:#1a1a1a;color:var(--gold);padding:9px 2px;border:1px solid var(--gold);position:sticky;top:0;z-index:5;font-size:9px;}
+td{padding:9px 2px;border:1px solid #222;text-align:center;}
+.col-sr{width:28px;}.col-stock{width:80px;}.col-price{width:65px;}
+.col-sec{width:45px;}.col-scan{width:42px;}.col-sig{width:50px;}.col-scr{width:38px;}
+#wl-popup{
+  position:fixed;top:-100%;left:0;width:100%;height:45%;
+  background:#0d0d0d;border-bottom:3px solid var(--gold);
+  transition:.4s ease;z-index:2000;padding:14px;max-width:480px;
+}
+#wl-popup.open{top:0;}
+.popup-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px;}
+.data-card{background:#1a1a1a;padding:8px;border:1px solid var(--gold);text-align:center;font-size:10px;}
+.data-card .val{display:block;font-weight:900;font-size:13px;margin-top:3px;}
+.close-btn{float:right;color:var(--red);font-weight:900;cursor:pointer;padding:4px;font-size:14px;}
+
+/* ═══════════════════════════════════════════
+   CHART PAGE
+═══════════════════════════════════════════ */
+#pg-chart{background:#030712;}
+#chart-hdr{background:#0f1425;border-bottom:1px solid var(--border);padding:3px 10px 2px;flex-shrink:0;}
+.cht{display:flex;justify-content:space-between;align-items:center;}
+#c-sym{color:var(--gold);font-size:13px;font-weight:900;letter-spacing:2px;}
+#c-ltp{font-size:15px;font-weight:900;color:var(--green);}
+#c-chg{font-size:8px;text-align:right;}
+.clegs{display:flex;gap:8px;margin-top:1px;font-size:7px;}
+.cleg{display:flex;align-items:center;gap:3px;}
+.cll{width:12px;height:2px;flex-shrink:0;}
+#tf-row{display:flex;gap:3px;padding:3px 8px;background:#030712;border-bottom:1px solid var(--border);flex-shrink:0;}
+.tf{background:#0f1425;color:#555;border:1px solid var(--border);padding:2px 7px;font-size:8.5px;font-weight:700;cursor:pointer;transition:all .15s;border-radius:3px;}
+.tf.on{background:var(--gold);color:#000;border-color:var(--gold);}
+#main-wrap{flex:1;background:#030712;position:relative;overflow:hidden;}
+#main-svg{width:100%;height:100%;display:block;}
+#zoom-bar{display:flex;align-items:center;gap:6px;background:#0f1425;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:2px 10px;flex-shrink:0;}
+#zlbl{color:#555;font-size:8px;flex:1;}
+.zb{width:22px;height:22px;border:1px solid var(--border);background:#0f1425;font-size:14px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .12s;user-select:none;border-radius:3px;}
+#zb-p{color:var(--green);border-color:#1e4a30;} #zb-p:active{background:#0d2e1c;transform:scale(.88);}
+#zb-m{color:var(--red);border-color:#4a1e1e;} #zb-m:active{background:#2e0d0d;transform:scale(.88);}
+#ind-sec{background:#0f1425;border-top:1px solid var(--border);padding:3px 4px 4px;flex-shrink:0;}
+#ind-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;}
+.ibox{border:1px solid;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2px 2px;height:36px;gap:1px;transition:all .4s;}
+.ibox.buy{background:#0d2b18;border-color:#1e5c30;}
+.ibox.sell{background:#2b0d0d;border-color:#5c1e1e;}
+.ibox.ntrl{background:#0c1122;border-color:var(--border);}
+.iname{font-size:7px;font-weight:900;letter-spacing:.5px;opacity:.85;}
+.ibox.buy .iname{color:#6effa0;}.ibox.sell .iname{color:#ff8877;}.ibox.ntrl .iname{color:#8a9fd8;}
+.ival{font-size:9.5px;font-weight:900;color:#fff;}
+.isig{font-size:7px;font-weight:900;letter-spacing:.5px;}
+.ibox.buy .isig{color:var(--green);}.ibox.sell .isig{color:var(--red);}.ibox.ntrl .isig{color:#8a9fd8;}
+@keyframes flash{0%{opacity:1}35%{opacity:.1}100%{opacity:1}}
+.flash{animation:flash .4s ease;}
+
+/* ═══════════════════════════════════════════
+   CONTROL / ADMIN PAGE — ORIGINAL DESIGN
+═══════════════════════════════════════════ */
+#pg-control{background:#000;}
+#pg-control .ctrl-body{flex:1;overflow-y:auto;padding:12px 12px 6px;}
+#pg-control .ctrl-body::-webkit-scrollbar{width:2px;}
+.prof-card{
+  background:#111;border:1px solid var(--gold);
+  padding:15px;display:flex;justify-content:space-between;
+  align-items:center;margin-bottom:12px;
+}
+.info-group{display:flex;flex-direction:column;gap:2px;}
+.id-label{font-weight:900;color:var(--gold);font-size:1rem;}
+.phone-email{font-size:.75rem;opacity:.8;}
+.mode-btn{background:var(--gold);color:black;border:none;padding:8px 12px;cursor:pointer;font-weight:800;font-size:.7rem;}
+.summary-card{background:#111;border:1px solid var(--gold);padding:15px;margin-bottom:12px;}
+.ptabs{display:flex;gap:5px;margin-bottom:12px;}
+.ptab{flex:1;padding:10px;font-size:.7rem;background:#222;border:none;color:var(--gold);cursor:pointer;font-weight:800;}
+.ptab.on{background:var(--gold);color:black;}
+.pnl-row{display:flex;justify-content:space-between;align-items:center;margin-top:5px;}
+.pnl-value{color:#00ff41;font-weight:900;font-size:1.2rem;}
+.bot-stats{font-size:.8rem;opacity:.8;margin-top:8px;}
+.ctrl-grid{border:1px solid var(--gold);margin-bottom:12px;}
+.edit-item{background:#111;padding:15px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #333;}
+.edit-item:last-child{border-bottom:none;}
+.item-name{font-size:.85rem;font-weight:700;}
+.change-btn{background:#0056b3;color:white;border:none;cursor:pointer;font-size:.75rem;font-weight:800;width:100px;height:35px;}
+.exit-btn{width:100%;height:50px;background:#8b0000;color:white;border:none;margin-top:15px;font-weight:900;font-size:1rem;cursor:pointer;}
+.exit-btn:active{background:#5c0000;}
+
+/* ── OTP / Change Password Modal ── */
+#otp-modal{
+  position:fixed;inset:0;background:rgba(0,0,0,.85);
+  display:none;align-items:center;justify-content:center;
+  z-index:9999;
+}
+#otp-modal.show{display:flex;}
+.otp-box{
+  width:88%;max-width:340px;
+  background:#0f1425;border:2px solid var(--gold);
+  padding:28px 22px 22px;
+}
+.otp-title{color:var(--gold);font-size:14px;font-weight:900;letter-spacing:2px;text-align:center;margin-bottom:18px;}
+.otp-step{display:none;}
+.otp-step.show{display:block;}
+.otp-input{
+  width:100%;background:#000;border:1px solid var(--gold);
+  padding:10px 12px;color:white;font-size:14px;font-family:'Courier New',monospace;
+  margin-bottom:10px;outline:none;letter-spacing:3px;text-align:center;
+}
+.otp-input:focus{border-color:#fff;}
+.otp-btn{
+  width:100%;background:var(--gold);color:#000;border:none;
+  padding:11px;font-weight:900;font-size:13px;letter-spacing:1px;cursor:pointer;
+}
+.otp-btn:active{opacity:.8;}
+.otp-cancel{
+  width:100%;background:transparent;color:#555;border:1px solid #333;
+  padding:9px;font-size:12px;cursor:pointer;margin-top:6px;
+}
+.otp-msg{font-size:10px;text-align:center;min-height:16px;margin-top:6px;}
+.otp-display{
+  background:#000;border:1px solid var(--gold);
+  padding:14px;text-align:center;margin-bottom:14px;
+}
+.otp-display .otp-code{
+  font-size:28px;font-weight:900;color:var(--gold);
+  letter-spacing:8px;font-family:'Courier New',monospace;
+}
+.otp-display small{color:#555;font-size:9px;display:block;margin-top:4px;}
+.chpwd-btn{
+  width:100%;background:#003366;color:white;border:1px solid #0056b3;
+  padding:11px;font-weight:900;font-size:12px;
+  letter-spacing:1px;cursor:pointer;margin-top:8px;margin-bottom:4px;
+}
+.chpwd-btn:active{background:#002244;}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════
+     LOGIN PAGE
+═══════════════════════════════ -->
+<div class="page active" id="pg-login">
+  <div class="login-wrap">
+    <div class="login-logo">
+      <div class="t1">🔱 TRINETR</div>
+      <div class="t2">PRO MASTER SYSTEM</div>
+      <div class="sep"></div>
+    </div>
+    <input class="finput" id="l-user" type="text" placeholder="Username" autocomplete="off"/>
+    <input class="finput" id="l-pass" type="password" placeholder="Password"/>
+    <button class="login-btn" onclick="doLogin()">LOGIN →</button>
+    <div class="login-err" id="l-err"></div>
+    <div class="login-hint">User: Charan007</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     HOME PAGE — ORIGINAL DESIGN
+═══════════════════════════════ -->
+<div class="page" id="pg-home">
+  <!-- 1. News ticker -->
+  <div class="news-ticker">
+    <marquee scrollamount="4">🔱 TRINETR: NIFTY 23850 ▲ | RELIANCE BULLISH | SECTOR ROTATION ACTIVE | COMMODITY GOLD 72450 🔱</marquee>
+  </div>
+  <!-- 2. Logo -->
+  <div class="home-header">
+    <div class="logo">🔱 TRINETR 🔱</div>
+  </div>
+  <!-- 3. Top stats -->
+  <div class="top-stats">
+    <div class="stat-box"><span class="stat-label">NIFTY 50</span><span class="stat-val" id="h-nifty">23,850</span></div>
+    <div class="stat-box"><span class="stat-label">SENSEX</span><span class="stat-val">78,500</span></div>
+    <div class="stat-box"><span class="stat-label">GOLD</span><span class="stat-val">72,450</span></div>
+    <div class="stat-box profile-link" onclick="goPage('control')">
+      <span class="stat-label" style="color:var(--gold)">PROFILE</span>
+      <span class="stat-val">👤</span>
+    </div>
+  </div>
+  <!-- 4. Entry desk -->
+  <div class="entry-section">
+    <div class="entry-card">
+      <div class="entry-row">
+        <div class="symbol" style="cursor:pointer" onclick="openChart('NIFTY',23850)">NIFTY</div>
+        <div class="p-chip"><span class="p-label">ENT</span><span class="p-val">23778</span></div>
+        <div class="p-chip"><span class="p-label">TG1</span><span class="p-val">24254</span></div>
+        <div class="p-chip"><span class="p-label">TG2</span><span class="p-val">24967</span></div>
+        <div class="p-chip"><span class="p-label">SL TRL</span><span class="p-val">23650</span></div>
+      </div>
+      <div class="entry-row">
+        <div class="symbol" style="cursor:pointer" onclick="openChart('RELIANCE',2985)">RELIANCE</div>
+        <div class="p-chip"><span class="p-label">ENT</span><span class="p-val">2377</span></div>
+        <div class="p-chip"><span class="p-label">TG1</span><span class="p-val">2425</span></div>
+        <div class="p-chip"><span class="p-label">TG2</span><span class="p-val">2496</span></div>
+        <div class="p-chip"><span class="p-label">SL TRL</span><span class="p-val">2354</span></div>
+      </div>
+    </div>
+  </div>
+  <!-- 5. Sector grid -->
+  <div class="sector-section">
+    <div class="sector-grid" id="sectorGrid"></div>
+  </div>
+  <!-- Sector popup sheet -->
+  <div id="sectorSheet" class="sheet">
+    <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #333;padding-bottom:15px;">
+      <h3 id="sheetTitle" style="color:var(--gold)">SECTOR</h3>
+      <button class="done-btn" onclick="closeSheet('sectorSheet')">DONE</button>
+    </div>
+    <div style="display:flex;padding-top:20px;gap:10px;">
+      <div style="flex:1;color:var(--green);background:#00ff0008;padding:10px;border-radius:8px;">
+        <h4 style="font-size:11px;">▲ BUY</h4>
+        <ul id="buyList" style="list-style:none;margin-top:10px;font-size:12px;line-height:2;"></ul>
+      </div>
+      <div style="flex:1;color:var(--red);background:#ff000008;padding:10px;border-radius:8px;">
+        <h4 style="font-size:11px;">▼ SELL</h4>
+        <ul id="sellList" style="list-style:none;margin-top:10px;font-size:12px;line-height:2;"></ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     SIGNAL PAGE
+═══════════════════════════════ -->
+<div class="page" id="pg-signal">
+  <div class="sig-hdr"><h1>🔱 TRISHUL PRO MASTER</h1></div>
+  <div class="signal-grid">
+    <div class="row-3">
+      <div class="sigbox" onclick="openSigDetail('STOCK SECURE')">
+        <i class="fas fa-shield-alt" style="color:var(--gold)"></i>
+        <span class="b-lbl">⚡ METER</span><b class="b-val">STOCK SECURE</b>
+      </div>
+      <div class="sigbox" onclick="openSigDetail('INDEX METER')">
+        <i class="fas fa-chart-line" style="color:var(--gold)"></i>
+        <span class="b-lbl">📈 METER</span><b class="b-val">INDEX METER</b>
+      </div>
+      <div class="sigbox split-box">
+        <div class="split-half" onclick="openSigDetail('VOLUME METER')">
+          <i class="fas fa-chart-bar" style="font-size:16px;color:var(--gold);margin-bottom:2px;"></i>
+          <span class="b-lbl" style="margin:0">📊 VOL</span><b class="b-val">VOLUME</b>
+        </div>
+        <div class="split-sep"></div>
+        <div class="split-half" onclick="openSigDetail('TIMEFRAME METER')">
+          <i class="fas fa-clock" style="font-size:16px;color:var(--gold);margin-bottom:2px;"></i>
+          <span class="b-lbl" style="margin:0">⏱️ TIME</span><b class="b-val">TIMEFRAME</b>
+        </div>
+      </div>
+    </div>
+    <div class="row-3">
+      <div class="sigbox" onclick="openSigDetail('BRAHMASTRA')">
+        <i class="fas fa-bolt" style="color:var(--gold)"></i>
+        <span class="b-lbl">🔱 SCANNER</span><b class="b-val">BRAHMASTRA</b>
+      </div>
+      <div class="sigbox" onclick="openSigDetail('SUDARSHAN')">
+        <i class="fas fa-dharmachakra" style="color:var(--gold)"></i>
+        <span class="b-lbl">🦚 SCANNER</span><b class="b-val">SUDARSHAN</b>
+      </div>
+      <div class="sigbox" onclick="openSigDetail('TRISHUL')">
+        <i class="fas fa-eye" style="color:var(--gold)"></i>
+        <span class="b-lbl">🗡️ SCANNER</span><b class="b-val">TRISHUL</b>
+      </div>
+    </div>
+    <div class="row-3">
+      <div class="sigbox" onclick="openSigDetail('ALL-IN-ONE')">
+        <i class="fas fa-layer-group" style="color:var(--gold)"></i>
+        <span class="b-lbl">🚀 SCANNER</span><b class="b-val">ALL-IN-ONE</b>
+      </div>
+      <div class="sigbox" onclick="openSigDetail('INDEX SCAN')">
+        <i class="fas fa-satellite-dish" style="color:var(--gold)"></i>
+        <span class="b-lbl">📊 SCANNER</span><b class="b-val">INDEX SCAN</b>
+      </div>
+      <div class="sigbox" onclick="openSigDetail('SCALE STRATEGY')">
+        <i class="fas fa-ruler-combined" style="color:var(--gold)"></i>
+        <span class="b-lbl">📏 PREMIUM</span><b class="b-val">SCALE</b>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Signal detail sub-page -->
+<div class="page" id="pg-sig-detail">
+  <div class="info-header">
+    <h2 id="sig-title">SCANNER</h2>
+    <div class="stats-row">
+      <div><small style="color:#666;font-size:8px;">🟢 BUY</small><br><b id="b-cnt" class="up" style="font-size:18px;">0</b></div>
+      <div style="width:1px;height:30px;background:#333;"></div>
+      <div><small style="color:#666;font-size:8px;">🔴 SELL</small><br><b id="s-cnt" class="down" style="font-size:18px;">0</b></div>
+    </div>
+  </div>
+  <div style="flex:1;overflow-y:auto;padding:0 0 4px;" id="sig-list"></div>
+  <button class="btn-back" onclick="goPage('signal')">◀ BACK TO DASHBOARD</button>
+</div>
+
+<!-- ═══════════════════════════════
+     WATCHLIST PAGE — ORIGINAL
+═══════════════════════════════ -->
+<div class="page" id="pg-watch">
+  <div class="top-patti">📋 TRINETR WATCHLIST</div>
+  <div class="wl-table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th class="col-sr">सं.</th>
+          <th class="col-stock">स्टॉक</th>
+          <th class="col-price">Price</th>
+          <th class="col-sec">Sec</th>
+          <th class="col-scan">Scan</th>
+          <th class="col-sig">Sig</th>
+          <th class="col-scr">Scr</th>
+        </tr>
+      </thead>
+      <tbody id="wl-body"></tbody>
+    </table>
+  </div>
+  <div id="wl-popup">
+    <span class="close-btn" onclick="closeWlPopup()">बंद ✖</span>
+    <h3 id="wl-pop-title" style="color:var(--gold);margin-top:0;font-size:16px;">Details</h3>
+    <div class="popup-grid" id="wl-pop-content"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     CHART PAGE
+═══════════════════════════════ -->
+<div class="page" id="pg-chart">
+  <div id="chart-hdr">
+    <div class="cht">
+      <span id="c-sym">RELIANCE</span>
+      <div><div id="c-ltp">—</div><div id="c-chg">—</div></div>
+    </div>
+    <div class="clegs">
+      <div class="cleg"><div class="cll" style="background:#c8901e;"></div><span style="color:#c8901e;font-size:7.5px;">EMA Fusion</span></div>
+      <div class="cleg"><div class="cll" style="border-top:2px dashed #b0c8ff;height:0;margin-top:1px;"></div><span style="color:#b0c8ff;font-size:7.5px;">VWAP</span></div>
+      <span style="color:#555;font-size:7px;margin-left:auto;">F:<b id="v-f" style="color:#c8901e;">—</b>&nbsp;VP:<b id="v-vw" style="color:#b0c8ff;">—</b></span>
+    </div>
+  </div>
+  <div id="tf-row">
+    <button class="tf" onclick="setTF(this,'1m')">1m</button>
+    <button class="tf" onclick="setTF(this,'5m')">5m</button>
+    <button class="tf on" onclick="setTF(this,'10m')">10m</button>
+    <button class="tf" onclick="setTF(this,'15m')">15m</button>
+    <button class="tf" onclick="setTF(this,'1h')">1h</button>
+    <button class="tf" onclick="setTF(this,'1D')">1D</button>
+  </div>
+  <div id="main-wrap"><svg id="main-svg" xmlns="http://www.w3.org/2000/svg"></svg></div>
+  <div id="zoom-bar">
+    <span id="zlbl">ZOOM 1×</span>
+    <button class="zb" id="zb-m" onclick="doZoom(-1)">−</button>
+    <button class="zb" id="zb-p" onclick="doZoom(+1)">+</button>
+  </div>
+  <div id="ind-sec"><div id="ind-grid"></div></div>
+</div>
+
+<!-- ═══════════════════════════════
+     CONTROL / ADMIN PAGE — ORIGINAL
+═══════════════════════════════ -->
+<div class="page" id="pg-control">
+  <div class="top-patti">⚙️ MASTER CONTROL</div>
+  <div class="ctrl-body">
+    <div class="prof-card">
+      <div class="info-group">
+        <span class="id-label">ID: Charan007</span>
+        <span class="phone-email">📞 +91 98XXX XXXXX</span>
+        <span class="phone-email">📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="76030513043602041f1813020458171f">[email&#160;protected]</a></span>
+      </div>
+      <button class="mode-btn" onclick="toggleMode()" id="mode-btn">LIGHT</button>
+    </div>
+    <div class="summary-card">
+      <div class="ptabs">
+        <button class="ptab on" onclick="setPnl(this,'1D')">1 DAY</button>
+        <button class="ptab" onclick="setPnl(this,'1W')">1 WEEK</button>
+        <button class="ptab" onclick="setPnl(this,'1M')">1 MONTH</button>
+      </div>
+      <div class="pnl-row">
+        <span style="font-size:.9rem;font-weight:700;">NET P&L:</span>
+        <span class="pnl-value" id="pnl-val">+₹12,450.00</span>
+      </div>
+      <div class="pnl-row bot-stats">
+        <span>Trades: <b id="pnl-tr">14</b></span>
+        <span style="color:#00ff41;">Accuracy: <b id="pnl-ac">78%</b></span>
+      </div>
+    </div>
+    <div class="ctrl-grid">
+      <div class="edit-item">
+        <div class="item-name">🏠 HOME PAGE</div>
+        <button class="change-btn" onclick="goPage('home')">GO →</button>
+      </div>
+      <div class="edit-item">
+        <div class="item-name">📡 SIGNAL PAGE</div>
+        <button class="change-btn" onclick="goPage('signal')">GO →</button>
+      </div>
+      <div class="edit-item">
+        <div class="item-name">📋 WATCHLIST</div>
+        <button class="change-btn" onclick="goPage('watch')">GO →</button>
+      </div>
+      <div class="edit-item">
+        <div class="item-name">📊 CHART PAGE</div>
+        <button class="change-btn" onclick="goPage('chart')">GO →</button>
+      </div>
+    </div>
+    <button class="chpwd-btn" onclick="startChangePassword()">🔑 CHANGE PASSWORD (OTP)</button>
+    <button class="exit-btn" onclick="doLogout()">⏻ LOGOUT (ऐप से बाहर निकलें)</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     OTP MODAL
+═══════════════════════════════ -->
+<div id="otp-modal">
+  <div class="otp-box">
+    <div class="otp-title">🔐 CHANGE PASSWORD</div>
+
+    <!-- Step 1: Verify current password -->
+    <div class="otp-step show" id="otp-s1">
+      <div style="color:#8a9fd8;font-size:10px;margin-bottom:10px;text-align:center;">Step 1: Current Password Verify करें</div>
+      <input class="otp-input" id="cur-pwd" type="password" placeholder="Current Password" style="letter-spacing:1px;"/>
+      <button class="otp-btn" onclick="verifyCurPwd()">VERIFY → GET OTP</button>
+      <div class="otp-msg" id="s1-msg"></div>
+      <button class="otp-cancel" onclick="closeOtpModal()">✕ Cancel</button>
+    </div>
+
+    <!-- Step 2: Show OTP -->
+    <div class="otp-step" id="otp-s2">
+      <div style="color:#8a9fd8;font-size:10px;margin-bottom:10px;text-align:center;">Step 2: यह OTP कहीं नोट करें</div>
+      <div class="otp-display">
+        <div class="otp-code" id="otp-show">------</div>
+        <small>⏱ 60 seconds mein expire hoga</small>
+        <small id="otp-timer" style="color:var(--gold);font-size:11px;margin-top:4px;display:block;">60s</small>
+      </div>
+      <input class="otp-input" id="otp-enter" type="number" placeholder="OTP Enter करें"/>
+      <button class="otp-btn" onclick="verifyOtp()">OTP VERIFY →</button>
+      <div class="otp-msg" id="s2-msg"></div>
+      <button class="otp-cancel" onclick="closeOtpModal()">✕ Cancel</button>
+    </div>
+
+    <!-- Step 3: Set new password -->
+    <div class="otp-step" id="otp-s3">
+      <div style="color:#8a9fd8;font-size:10px;margin-bottom:10px;text-align:center;">Step 3: नया Password Set करें</div>
+      <input class="otp-input" id="new-pwd1" type="password" placeholder="New Password" style="letter-spacing:1px;"/>
+      <input class="otp-input" id="new-pwd2" type="password" placeholder="Confirm Password" style="letter-spacing:1px;"/>
+      <button class="otp-btn" onclick="setNewPassword()">✅ PASSWORD SAVE करें</button>
+      <div class="otp-msg" id="s3-msg"></div>
+    </div>
+
+    <!-- Step 4: Success -->
+    <div class="otp-step" id="otp-s4">
+      <div style="text-align:center;padding:20px 0;">
+        <div style="font-size:48px;">✅</div>
+        <div style="color:var(--green);font-size:14px;font-weight:900;margin-top:10px;">Password Changed!</div>
+        <div style="color:#555;font-size:10px;margin-top:6px;">अगली बार नया password use करें</div>
+      </div>
+      <button class="otp-btn" onclick="closeOtpModal()" style="margin-top:10px;">DONE ✓</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     BOTTOM NAV — 5 TABS
+═══════════════════════════════ -->
+<nav id="bnav" class="hidden">
+  <button class="nb" id="nb-home" onclick="goPage('home')">
+    <span class="ni">🏠</span><span class="nt">HOME</span>
+  </button>
+  <button class="nb" id="nb-signal" onclick="goPage('signal')">
+    <span class="ni">📡</span><span class="nt">SIGNAL</span>
+  </button>
+  <button class="nb" id="nb-chart" onclick="goPage('chart')">
+    <span class="ni">📈</span><span class="nt">CHART</span>
+  </button>
+  <button class="nb" id="nb-watch" onclick="goPage('watch')">
+    <span class="ni">⭐</span><span class="nt">WATCH</span>
+  </button>
+  <button class="nb" id="nb-control" onclick="goPage('control')">
+    <span class="ni">⚙️</span><span class="nt">ADMIN</span>
+  </button>
+</nav>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// ══════════════════════════════════
+//  PAGE NAVIGATION
+// ══════════════════════════════════
+function goPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('pg-'+id).classList.add('active');
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));
+  const nb=document.getElementById('nb-'+id);
+  if(nb) nb.classList.add('on');
+  if(id==='watch') renderWatchlist();
+  if(id==='chart') setTimeout(drawMain,60);
+}
+
+// ══════════════════════════════════
+// ══════════════════════════════════
+//  APP STATE
+// ══════════════════════════════════
+let APP_PWD = '123456'; // changes when user updates via OTP
+
+//  LOGIN / LOGOUT
+// ══════════════════════════════════
+function doLogin(){
+  const u=document.getElementById('l-user').value.trim();
+  const p=document.getElementById('l-pass').value;
+  const e=document.getElementById('l-err');
+  if(u==='Charan007'&&p===APP_PWD){
+    e.textContent='';
+    document.getElementById('pg-login').classList.remove('active');
+    document.getElementById('bnav').classList.remove('hidden');
+    goPage('home');
+    buildSectors();
+    startTick();
+  } else {
+    e.textContent='❌ Invalid username or password';
+  }
+}
+document.addEventListener('keydown',ev=>{if(ev.key==='Enter')doLogin();});
+function doLogout(){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('pg-login').classList.add('active');
+  document.getElementById('bnav').classList.add('hidden');
+  document.getElementById('l-user').value='';
+  document.getElementById('l-pass').value='';
+}
+
+// ══════════════════════════════════
+//  HOME — SECTOR GRID (original logic)
+// ══════════════════════════════════
+const SECTORS=[
+  {n:'REALTY',b:9,s:0},{n:'BANKING',b:8,s:1},{n:'IT',b:7,s:2},
+  {n:'AUTO',b:6,s:1},{n:'FINANCE',b:5,s:1},{n:'CHEMICAL',b:6,s:2},
+  {n:'POWER',b:4,s:4},{n:'INFRA',b:3,s:3},{n:'TELECOM',b:2,s:2},
+  {n:'CEMENT',b:2,s:4},{n:'CONSUMER',b:3,s:5},{n:'FMCG',b:3,s:6},
+  {n:'ENERGY',b:1,s:5},{n:'MEDIA',b:1,s:5},{n:'PSU BANK',b:2,s:6},
+  {n:'PHARMA',b:2,s:7},{n:'OIL&GAS',b:2,s:7},{n:'METAL',b:1,s:8}
+];
+function buildSectors(){
+  const grid=document.getElementById('sectorGrid');
+  if(grid.children.length>0) return; // already built
+  SECTORS.forEach(sec=>{
+    const div=document.createElement('div');
+    const diff=sec.b-sec.s;
+    let cls='neutral';
+    if(diff>2) cls='bullish';
+    else if(diff<-2) cls='bearish';
+    div.className='sbox '+cls;
+    div.onclick=()=>openSector(sec.n);
+    div.innerHTML=`<span class="box-name">${sec.n}</span><div class="box-data"><span style="color:var(--green)">▲${sec.b}</span> <span style="color:var(--red)">▼${sec.s}</span></div>`;
+    grid.appendChild(div);
+  });
+}
+function openSector(name){
+  document.getElementById('sheetTitle').innerText=name+' STOCKS';
+  document.getElementById('buyList').innerHTML='<li>• Stock A</li><li>• Stock B</li>';
+  document.getElementById('sellList').innerHTML='<li>• Stock C</li>';
+  document.getElementById('sectorSheet').classList.add('open');
+}
+function closeSheet(id){document.getElementById(id).classList.remove('open');}
+
+// ══════════════════════════════════
+//  SIGNAL DATA
+// ══════════════════════════════════
+const SIG_DATA={
+  'STOCK SECURE':[{n:'RELIANCE',p:'2985.40',s:'SAFE',sc:'90',t:'up',src:'METER'},{n:'HDFCBANK',p:'1623.90',s:'SAFE',sc:'88',t:'up',src:'METER'},{n:'TATAMOTORS',p:'874.20',s:'CAUTION',sc:'45',t:'down',src:'METER'}],
+  'INDEX METER':[{n:'NIFTY 50',p:'24520',s:'ULTRA BUY',sc:'95',t:'up',src:'INDEX'},{n:'BANKNIFTY',p:'48236',s:'BUY',sc:'82',t:'up',src:'INDEX'},{n:'CRUDE OIL',p:'6450',s:'SELL',sc:'20',t:'down',src:'COMMO'}],
+  'VOLUME METER':[{n:'HDFC BANK',p:'1440.10',s:'HIGH VOL',sc:'88',t:'up',src:'VOL'},{n:'SBIN',p:'789.40',s:'HIGH VOL',sc:'80',t:'up',src:'VOL'}],
+  'TIMEFRAME METER':[{n:'BANK NIFTY',p:'5m/15m',s:'BULLISH',sc:'75',t:'up',src:'TIME'},{n:'NIFTY',p:'1h/1D',s:'BEARISH',sc:'30',t:'down',src:'TIME'}],
+  'BRAHMASTRA':[{n:'TATA MOTORS',p:'945.20',s:'B-SIGNAL',sc:'65',t:'up',src:'SCAN'},{n:'BAJFINANCE',p:'7134.50',s:'B-SIGNAL',sc:'72',t:'up',src:'SCAN'}],
+  'SUDARSHAN':[{n:'INFY',p:'1520',s:'S-SIGNAL',sc:'62',t:'up',src:'SCAN'},{n:'WIPRO',p:'456.80',s:'S-SIGNAL',sc:'48',t:'down',src:'SCAN'}],
+  'TRISHUL':[{n:'GOLD',p:'72100',s:'BUY',sc:'70',t:'up',src:'SCAN'},{n:'SILVER',p:'88500',s:'BUY',sc:'65',t:'up',src:'SCAN'}],
+  'ALL-IN-ONE':[{n:'NATURAL GAS',p:'215.40',s:'STRONG BUY',sc:'98',t:'up',src:'SCAN'},{n:'ONGC',p:'234.60',s:'HOLD',sc:'52',t:'up',src:'SCAN'}],
+  'INDEX SCAN':[{n:'SENSEX',p:'81230',s:'SCAN OK',sc:'85',t:'up',src:'SCAN'},{n:'NIFTY BANK',p:'48236',s:'BUY',sc:'80',t:'up',src:'SCAN'}],
+  'SCALE STRATEGY':[{n:'NIFTY SCALE',p:'24550',s:'ENTRY',sc:'75',t:'up',src:'SCALE'},{n:'BN SCALE',p:'48200',s:'ENTRY',sc:'70',t:'up',src:'SCALE'}],
+};
+function openSigDetail(title){
+  document.getElementById('sig-title').innerText=title;
+  const list=document.getElementById('sig-list');
+  list.innerHTML='';
+  const data=SIG_DATA[title]||[];
+  let b=0,s=0;
+  data.forEach(item=>{
+    if(item.t==='up')b++;else s++;
+    list.innerHTML+=`<div class="v-item" style="margin:0 8px 7px;">
+      <div class="cell"><span class="st-name">${item.n}</span><br><small style="font-size:7px;color:var(--accent)">${item.src}</small></div>
+      <div class="v-cut"></div>
+      <div class="cell"><span class="st-price ${item.t==='up'?'up':'down'}">₹${item.p}</span></div>
+      <div class="v-cut"></div>
+      <div class="cell"><span class="st-tag ${item.t==='up'?'bg-up':'bg-down'}">${item.s}</span><div style="font-size:8px;margin-top:3px;color:#888;">STR: <b style="color:#fff">${item.sc}%</b></div></div>
+    </div>`;
+  });
+  document.getElementById('b-cnt').innerText=b;
+  document.getElementById('s-cnt').innerText=s;
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('pg-sig-detail').classList.add('active');
+  document.getElementById('nb-signal').classList.add('on');
+}
+
+// ══════════════════════════════════
+//  WATCHLIST (original logic)
+// ══════════════════════════════════
+const WL_NAMES=['RELIANCE','TCS','HDFC BANK','INFY','SBI','ITC','WIPRO'];
+const WL_SCANS=['Brahmastra','Trishul','Sudarshan','All-in-One','Index','Scalp'];
+const SCAN_MAP={Brahmastra:'BMS',Trishul:'TS',Sudarshan:'SS','All-in-One':'AiO',Index:'IND',Scalp:'SCP'};
+function renderWatchlist(){
+  const tbody=document.getElementById('wl-body');
+  if(tbody.children.length>0) return;
+  for(let i=1;i<=30;i++){
+    const name=WL_NAMES[i%WL_NAMES.length];
+    const scanFull=WL_SCANS[i%WL_SCANS.length];
+    const isBuy=i%2===0;
+    const price=(2000+i*15.5).toFixed(2);
+    tbody.innerHTML+=`<tr>
+      <td>${i}</td>
+      <td onclick="openWlStock('${name}','${price}')" style="color:var(--gold);font-weight:900;cursor:pointer;">${name}</td>
+      <td>${price}</td>
+      <td onclick="openWlSector('IT')" style="cursor:pointer;">IT</td>
+      <td onclick="openWlScan('${scanFull}')" style="cursor:pointer;color:var(--accent);">${SCAN_MAP[scanFull]}</td>
+      <td style="color:${isBuy?'var(--green)':'var(--red)'};">${isBuy?'BUY':'SELL'}</td>
+      <td>${95-i}</td>
+    </tr>`;
+  }
+}
+function openWlStock(name,price){
+  const e=(parseFloat(price)-15).toFixed(0),t1=(parseFloat(price)+30).toFixed(0),t2=(parseFloat(price)+60).toFixed(0),sl=(parseFloat(price)-25).toFixed(0);
+  document.getElementById('wl-pop-title').innerText=name;
+  document.getElementById('wl-pop-content').innerHTML=`
+    <div class="data-card">Entry<span class="val">${e}</span></div>
+    <div class="data-card">Target 1<span class="val" style="color:var(--green)">${t1}</span></div>
+    <div class="data-card">Target 2<span class="val" style="color:var(--green)">${t2}</span></div>
+    <div class="data-card">SL<span class="val" style="color:var(--red)">${sl}</span></div>
+    <div class="data-card">TSL<span class="val">${(parseFloat(price)-10).toFixed(0)}</span></div>
+    <div class="data-card">Exit<span class="val">---</span></div>`;
+  document.getElementById('wl-popup').classList.add('open');
+}
+function openWlSector(sec){
+  document.getElementById('wl-pop-title').innerText=sec+' Sector';
+  document.getElementById('wl-pop-content').innerHTML=`<div class="data-card" style="grid-column:span 3;text-align:left;"><p>🟢 BUY: 5</p><p>🔴 SELL: 2</p><p>Trend: Bullish</p></div>`;
+  document.getElementById('wl-popup').classList.add('open');
+}
+function openWlScan(scan){
+  document.getElementById('wl-pop-title').innerText=scan+' Logic';
+  document.getElementById('wl-pop-content').innerHTML=`<div class="data-card" style="grid-column:span 3;text-align:left;"><p>• ${scan} Active</p><p>• EMA/RSI Cross</p><p>• Volume OK</p></div>`;
+  document.getElementById('wl-popup').classList.add('open');
+}
+function closeWlPopup(){document.getElementById('wl-popup').classList.remove('open');}
+
+// ══════════════════════════════════
+//  CONTROL PAGE
+// ══════════════════════════════════
+let isDark=true;
+function toggleMode(){
+  isDark=!isDark;
+  document.body.style.background=isDark?'':'#f5f5f5';
+  document.body.style.color=isDark?'':'#000';
+  document.getElementById('mode-btn').textContent=isDark?'LIGHT':'DARK';
+}
+const PNL={'1D':{v:'+₹12,450.00',t:'14',a:'78%'},'1W':{v:'+₹48,200.00',t:'62',a:'74%'},'1M':{v:'+₹1,82,500.00',t:'248',a:'71%'}};
+function setPnl(btn,k){
+  document.querySelectorAll('.ptab').forEach(t=>t.classList.remove('on'));btn.classList.add('on');
+  const d=PNL[k];
+  document.getElementById('pnl-val').textContent=d.v;
+  document.getElementById('pnl-tr').textContent=d.t;
+  document.getElementById('pnl-ac').textContent=d.a;
+}
+
+// ══════════════════════════════════
+//  OPEN CHART FROM ANYWHERE
+// ══════════════════════════════════
+let currentSym='RELIANCE', currentLTP=2985;
+function openChart(sym,ltp){
+  currentSym=sym; currentLTP=ltp||2985;
+  candles=genCandles(90,currentLTP,.008);
+  zoomLevel=1;
+  goPage('chart');
+  document.getElementById('c-sym').textContent=sym;
+  updateBoxes();
+}
+
+// ══════════════════════════════════
+//  CHART ENGINE
+// ══════════════════════════════════
+const NS='http://www.w3.org/2000/svg';
+const ZOOM_STEPS=[80,60,44,30,20,12];
+let zoomLevel=1,candles=[];
+
+function genCandles(n,base,vol){
+  let p=base;const a=[];
+  for(let i=0;i<n;i++){
+    const tr=Math.sin(i/14)*.002+(i>45?.001:0);
+    const o=p,mv=(Math.random()-.47+tr)*vol*p,c=o+mv,wk=Math.random()*vol*.4*p;
+    a.push({o,h:Math.max(o,c)+wk,l:Math.min(o,c)-wk*Math.random(),c});p=c;
+  }
+  return a;
+}
+function calcEMA(d,p){const k=2/(p+1);let prev=d[0].c;return d.map(x=>{prev=x.c*k+prev*(1-k);return prev;});}
+function calcVWAP(d){let ct=0,cv=0;return d.map(x=>{const tp=(x.h+x.l+x.c)/3,v=Math.abs(x.c-x.o)*200+600;ct+=tp*v;cv+=v;return ct/cv;});}
+function calcRSI(d,p=14){let g=0,l=0;const r=[50];for(let i=1;i<d.length;i++){const df=d[i].c-d[i-1].c;if(i<p){g+=Math.max(0,df);l+=Math.max(0,-df);r.push(50);continue;}if(i===p){g/=p;l/=p;}else{g=(g*(p-1)+Math.max(0,df))/p;l=(l*(p-1)+Math.max(0,-df))/p;}r.push(100-100/(1+(l===0?100:g/l)));}return r[r.length-1];}
+function calcMACD(d){const e12=calcEMA(d,12),e26=calcEMA(d,26),m=e12.map((v,i)=>v-e26[i]);const k=2/10;let prev=m[0];const sig=m.map(v=>{prev=v*k+prev*(1-k);return prev;});return m[m.length-1]-sig[sig.length-1];}
+function calcATR(d,p=14){const tr=d.map((c,i)=>i===0?c.h-c.l:Math.max(c.h-c.l,Math.abs(c.h-d[i-1].c),Math.abs(c.l-d[i-1].c)));let prev=tr[0];for(let i=1;i<tr.length;i++)prev=(prev*(p-1)+tr[i])/p;return prev;}
+function calcCCI(d,p=20){const sl=d.slice(-p);const tp=(d[d.length-1].h+d[d.length-1].l+d[d.length-1].c)/3;const mean=sl.reduce((s,x)=>s+(x.h+x.l+x.c)/3,0)/sl.length;const md=sl.reduce((s,x)=>s+Math.abs((x.h+x.l+x.c)/3-mean),0)/sl.length;return md===0?0:(tp-mean)/(0.015*md);}
+function calcMFI(d,p=14){const sl=d.slice(-p);let pos=0,neg=0;sl.forEach((x,j)=>{const tp=(x.h+x.l+x.c)/3,v=Math.abs(x.c-x.o)*500+800,mf=tp*v;if(j===0){pos+=mf;return;}const ptp=(sl[j-1].h+sl[j-1].l+sl[j-1].c)/3;tp>=ptp?pos+=mf:neg+=mf;});return neg===0?100:100-(100/(1+pos/neg));}
+function calcOBV(d){let o=0;d.forEach((c,i)=>{if(i===0)return;const v=Math.abs(c.c-c.o)*500+1000;o+=c.c>=d[i-1].c?v:-v;});return o;}
+function calcCVD(d){let c=0;d.forEach(x=>{const v=Math.abs(x.c-x.o)*500+800;c+=x.c>=x.o?v:-v;});return c;}
+function calcStoch(d,p=14){const sl=d.slice(-p);const hh=Math.max(...sl.map(c=>c.h)),ll=Math.min(...sl.map(c=>c.l));return hh===ll?50:(d[d.length-1].c-ll)/(hh-ll)*100;}
+function calcZL(d,p=21){const e1=calcEMA(d,p);const d2=d.map((c,i)=>({...c,c:2*c.c-e1[i]}));return calcEMA(d2,p)[d.length-1];}
+function calcORB(d){const orbH=Math.max(...d.slice(0,5).map(c=>c.h)),orbL=Math.min(...d.slice(0,5).map(c=>c.l)),last=d[d.length-1].c;if(last>orbH)return{v:'BRK↑',sig:'BUY'};if(last<orbL)return{v:'BRK↓',sig:'SELL'};return{v:'RANGE',sig:'NTRL'};}
+
+const INDS=[
+  {id:'rsi', name:'RSI',   calc:d=>{const v=calcRSI(d);return{v,sig:v>60?'BUY':v<40?'SELL':'NTRL'};},fmt:v=>v.toFixed(0)},
+  {id:'macd',name:'MACD',  calc:d=>{const v=calcMACD(d);return{v,sig:v>0?'BUY':v<0?'SELL':'NTRL'};},fmt:v=>(v>0?'+':'')+v.toFixed(1)},
+  {id:'adx', name:'ADX',   calc:d=>{const v=Math.min(60,calcATR(d)/d[d.length-1].c*1000+10);return{v,sig:v>25?'BUY':'NTRL'};},fmt:v=>v.toFixed(0)},
+  {id:'cci', name:'CCI',   calc:d=>{const v=calcCCI(d);return{v,sig:v>100?'BUY':v<-100?'SELL':'NTRL'};},fmt:v=>v.toFixed(0)},
+  {id:'mfi', name:'MFI',   calc:d=>{const v=calcMFI(d);return{v,sig:v>60?'BUY':v<40?'SELL':'NTRL'};},fmt:v=>v.toFixed(0)},
+  {id:'obv', name:'OBV',   calc:d=>{const v=calcOBV(d);return{v:v/1000,sig:v>0?'BUY':v<0?'SELL':'NTRL'};},fmt:v=>(v>0?'+':'')+v.toFixed(0)+'K'},
+  {id:'cvd', name:'CVD',   calc:d=>{const v=calcCVD(d);return{v:v/1000,sig:v>0?'BUY':v<0?'SELL':'NTRL'};},fmt:v=>(v>0?'+':'')+v.toFixed(0)+'K'},
+  {id:'atr', name:'ATR',   calc:d=>{const v=calcATR(d);return{v,sig:v>30?'SELL':v<10?'BUY':'NTRL'};},fmt:v=>v.toFixed(1)},
+  {id:'stch',name:'STOCH', calc:d=>{const v=calcStoch(d);return{v,sig:v>80?'SELL':v<20?'BUY':'NTRL'};},fmt:v=>v.toFixed(0)},
+  {id:'zl',  name:'Z-LAG', calc:d=>{const zl=calcZL(d),last=d[d.length-1].c;return{v:zl,sig:last>zl?'BUY':last<zl?'SELL':'NTRL'};},fmt:v=>v.toFixed(0)},
+  {id:'orb', name:'ORB',   calc:d=>calcORB(d),fmt:v=>v},
+  {id:'vwap',name:'VWAP',  calc:d=>{const vw=calcVWAP(d);const last=d[d.length-1].c,vl=vw[vw.length-1];return{v:vl,sig:last>vl?'BUY':last<vl?'SELL':'NTRL'};},fmt:v=>v.toFixed(0)},
+  {id:'pcr', name:'PCR',   calc:d=>{const v=0.7+Math.sin(d.length/10)*.4+Math.random()*.15;return{v,sig:v>1.2?'BUY':v<0.8?'SELL':'NTRL'};},fmt:v=>v.toFixed(2)},
+  {id:'oi',  name:'OI',    calc:d=>{const v=(Math.random()-.4)*30;return{v,sig:v>5?'BUY':v<-5?'SELL':'NTRL'};},fmt:v=>(v>0?'+':'')+v.toFixed(1)+'%'},
+  {id:'vroc',name:'VROC',  calc:d=>{const p=12;if(d.length<=p)return{v:0,sig:'NTRL'};const v=Math.abs(d[d.length-1].c-d[d.length-1].o)*500+1000;const pv=Math.abs(d[d.length-1-p].c-d[d.length-1-p].o)*500+1000;const vv=pv===0?0:((v-pv)/pv)*100;return{v:vv,sig:vv>5?'BUY':vv<-5?'SELL':'NTRL'};},fmt:v=>(v>0?'+':'')+v.toFixed(1)+'%'},
+  {id:'mfid',name:'MFI-D', calc:d=>{const m1=calcMFI(d),m2=calcMFI(d.slice(0,-5)),p1=d[d.length-1].c,p2=d[d.length-6]?.c||p1;const div=(m1>m2&&p1<p2)||(m1<m2&&p1>p2);return{v:m1,sig:div?'SELL':m1>60?'BUY':'NTRL'};},fmt:v=>v.toFixed(0)},
+];
+
+function buildBoxes(){
+  const grid=document.getElementById('ind-grid');
+  grid.innerHTML='';
+  INDS.forEach(ind=>{
+    const box=document.createElement('div');
+    box.className='ibox ntrl';box.id='box-'+ind.id;
+    box.innerHTML=`<div class="iname">${ind.name}</div><div class="ival" id="val-${ind.id}">—</div><div class="isig" id="sig-${ind.id}">—</div>`;
+    grid.appendChild(box);
+  });
+}
+function updateBoxes(){
+  if(!candles.length)return;
+  INDS.forEach(ind=>{
+    const res=ind.calc(candles);const{v,sig}=res;
+    const box=document.getElementById('box-'+ind.id);if(!box)return;
+    box.className='ibox '+(sig==='BUY'?'buy':sig==='SELL'?'sell':'ntrl');
+    document.getElementById('val-'+ind.id).textContent=typeof v==='string'?v:ind.fmt(v);
+    document.getElementById('sig-'+ind.id).textContent=sig;
+    box.classList.remove('flash');void box.offsetWidth;box.classList.add('flash');
+  });
+}
+
+function findEntry(e9,e20){
+  for(let i=e9.length-1;i>2;i--)if(e9[i]>=e20[i]&&e9[i-1]<e20[i-1])return i;
+  let mi=Math.floor(candles.length*.35);
+  for(let i=mi+1;i<candles.length-8;i++)if(candles[i].l<candles[mi].l)mi=i;
+  return mi;
+}
+function mk(t){return document.createElementNS(NS,t);}
+function sa(el,a){for(const[k,v]of Object.entries(a))el.setAttribute(k,v);return el;}
+
+function drawMain(){
+  const svg=document.getElementById('main-svg');
+  const wrap=document.getElementById('main-wrap');
+  const W=wrap.clientWidth||375,H=wrap.clientHeight||200;
+  const PAD={t:8,r:56,b:16,l:4};
+  sa(svg,{viewBox:`0 0 ${W} ${H}`});svg.innerHTML='';
+  const cW=W-PAD.l-PAD.r,cH=H-PAD.t-PAD.b;
+  const vn=ZOOM_STEPS[Math.min(zoomLevel-1,ZOOM_STEPS.length-1)];
+  const si=Math.max(0,candles.length-vn);
+  const vis=candles.slice(si);if(!vis.length)return;
+  const e9all=calcEMA(candles,9),e20all=calcEMA(candles,20);
+  const e9=e9all.slice(si),e20=e20all.slice(si);
+  const fusion=e9.map((v,i)=>v*.6+e20[i]*.4);
+  const vwap=calcVWAP(candles).slice(si);
+  const allV=vis.flatMap(c=>[c.h,c.l]);
+  const minV=Math.min(...allV)*.9993,maxV=Math.max(...allV)*1.0007,rng=maxV-minV;
+  const sy=v=>PAD.t+cH-((v-minV)/rng)*cH;
+  const sx=i=>PAD.l+(i+.5)*(cW/vis.length);
+  const cw=Math.max(2,cW/vis.length-1.3);
+  const poly=arr=>arr.map((v,i)=>`${sx(i).toFixed(1)},${sy(v).toFixed(1)}`).join(' ');
+  const ap=el=>{svg.appendChild(el);return el;};
+
+  for(let i=0;i<5;i++){const v=minV+(rng*i)/4;ap(sa(mk('line'),{x1:PAD.l,y1:sy(v),x2:PAD.l+cW,y2:sy(v),stroke:'#1a2840','stroke-width':'0.5','stroke-dasharray':'4,5',opacity:'.7'}));ap(sa(mk('text'),{x:PAD.l+cW+3,y:sy(v)+3,fill:'#2a345a','font-size':'6.5','font-family':'monospace'})).textContent=v.toFixed(0);}
+
+  const pv=currentLTP,buf=currentLTP*.003; // buffer 0.3% instead of 1.5% — much tighter zones
+  [[pv*1.02+buf,pv*1.02-buf,'rgba(231,76,60,.18)','#e74c3c','R1','#ff8877'],
+   [pv*.98+buf,pv*.98-buf,'rgba(46,204,113,.15)','#2ecc71','S1','#6effa0']]
+  .forEach(([top,bot,fill,bdr,lbl,lcol])=>{
+    const zt=Math.min(top,maxV),zb=Math.max(bot,minV);
+    if(zt<=minV||zb>=maxV)return;
+    const y1=sy(zt),y2=sy(zb),h=Math.max(3,y2-y1);
+    ap(sa(mk('rect'),{x:PAD.l,y:y1,width:cW,height:h,fill}));
+    ap(sa(mk('rect'),{x:PAD.l,y:y1,width:2,height:h,fill:bdr}));
+    ap(sa(mk('rect'),{x:PAD.l+cW,y:y1,width:55,height:h,fill}));
+    ap(sa(mk('text'),{x:PAD.l+cW+4,y:y1+h/2+3,fill:lcol,'font-size':'6.5','font-family':'monospace','font-weight':'bold'})).textContent=lbl;
+  });
+
+  ap(sa(mk('polyline'),{points:poly(vwap),fill:'none',stroke:'#b0c8ff','stroke-width':'1','stroke-dasharray':'3,3',opacity:'.7'}));
+  ap(sa(mk('polyline'),{points:poly(fusion),fill:'none',stroke:'#c8901e','stroke-width':'2.2','stroke-linejoin':'round',opacity:'.97'}));
+
+  vis.forEach((c,i)=>{
+    const isUp=c.c>=c.o,col=isUp?'#27ae60':'#c0392b',colB=isUp?'#2ecc71':'#e74c3c';
+    const bTop=sy(Math.max(c.o,c.c)),bH=Math.max(1,Math.abs(sy(c.o)-sy(c.c))),x=sx(i);
+    ap(sa(mk('line'),{x1:x,y1:sy(c.h),x2:x,y2:sy(c.l),stroke:col,'stroke-width':'0.75'}));
+    ap(sa(mk('rect'),{x:x-cw/2,y:bTop,width:cw,height:bH,fill:colB,rx:'0.2'}));
+  });
+
+  const eAbs=findEntry(e9all,e20all),eRel=eAbs-si;
+  if(eRel>=0&&eRel<vis.length){
+    const ex=sx(eRel),ep=vis[eRel].l,ey=sy(ep)+4;
+    ap(sa(mk('line'),{x1:ex,y1:PAD.t,x2:ex,y2:sy(ep),stroke:'#2ecc71','stroke-width':'.9','stroke-dasharray':'3,3',opacity:'.6'}));
+    ap(sa(mk('path'),{d:`M${ex},${ey} L${ex-6},${ey+11} L${ex+6},${ey+11} Z`,fill:'#2ecc71'}));
+    const lw=66,lh=13,lx=Math.max(PAD.l,Math.min(ex-lw/2,PAD.l+cW-lw)),ly=ey+13;
+    ap(sa(mk('rect'),{x:lx,y:ly,width:lw,height:lh,fill:'#012a10',stroke:'#2ecc71','stroke-width':'1'}));
+    ap(sa(mk('text'),{x:lx+lw/2,y:ly+9.5,fill:'#2ecc71','font-size':'7.5','font-family':'monospace','font-weight':'900','text-anchor':'middle','letter-spacing':'1.5'})).textContent='ENTRY '+ep.toFixed(0);
+  }
+
+  const lastC=vis[vis.length-1].c;
+  ap(sa(mk('line'),{x1:PAD.l,y1:sy(lastC),x2:PAD.l+cW,y2:sy(lastC),stroke:'#ffd700','stroke-width':'.55','stroke-dasharray':'4,3',opacity:'.65'}));
+  ap(sa(mk('rect'),{x:PAD.l+cW,y:sy(lastC)-6,width:55,height:12,fill:'#ffd700'}));
+  ap(sa(mk('text'),{x:PAD.l+cW+28,y:sy(lastC)+3,fill:'#000','font-size':'7','font-family':'monospace','font-weight':'900','text-anchor':'middle'})).textContent=lastC.toFixed(2);
+
+  document.getElementById('v-f').textContent=fusion[fusion.length-1].toFixed(2);
+  document.getElementById('v-vw').textContent=vwap[vwap.length-1].toFixed(2);
+  document.getElementById('c-ltp').textContent=lastC.toFixed(2);
+  const prev=vis[vis.length-2]?.c||lastC,pct=((lastC-prev)/prev*100).toFixed(2),isUp=lastC>=prev;
+  document.getElementById('c-ltp').style.color=isUp?'#2ecc71':'#e74c3c';
+  document.getElementById('c-chg').style.color=isUp?'#2ecc71':'#e74c3c';
+  document.getElementById('c-chg').textContent=(isUp?'▲ +':'▼ ')+pct+'%';
+  document.getElementById('zlbl').textContent=`ZOOM ${zoomLevel}×  —  ${vis.length} candles`;
+}
+
+function doZoom(d){zoomLevel=Math.max(1,Math.min(ZOOM_STEPS.length,zoomLevel+d));drawMain();}
+const VM={'1m':.004,'5m':.006,'10m':.008,'15m':.011,'1h':.014,'1D':.019};
+function setTF(btn,tf){
+  document.querySelectorAll('.tf').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
+  candles=genCandles(90,currentLTP,VM[tf]||.008);zoomLevel=1;drawMain();updateBoxes();
+}
+
+function startTick(){
+  setInterval(()=>{
+    if(!candles.length)return;
+    const last=candles[candles.length-1];
+    const o=last.c,mv=(Math.random()-.47)*.004*o,c=o+mv,wk=Math.random()*.002*o;
+    candles.push({o,h:Math.max(o,c)+wk,l:Math.min(o,c)-wk*.6,c});
+    if(candles.length>130)candles.shift();
+    const pg=document.querySelector('.page.active');
+    if(pg&&pg.id==='pg-chart'){drawMain();updateBoxes();}
+  },3000);
+}
+
+// ══════════════════════════════════
+//  OTP PASSWORD CHANGE SYSTEM
+// ══════════════════════════════════
+let generatedOTP = '';
+let otpTimer = null;
+let otpExpired = false;
+
+function startChangePassword(){
+  // Reset all steps
+  ['otp-s1','otp-s2','otp-s3','otp-s4'].forEach(id=>{
+    document.getElementById(id).classList.remove('show');
+  });
+  document.getElementById('otp-s1').classList.add('show');
+  document.getElementById('cur-pwd').value='';
+  document.getElementById('s1-msg').textContent='';
+  document.getElementById('otp-modal').classList.add('show');
+}
+
+function closeOtpModal(){
+  document.getElementById('otp-modal').classList.remove('show');
+  if(otpTimer) clearInterval(otpTimer);
+}
+
+function goOtpStep(from, to){
+  document.getElementById('otp-s'+from).classList.remove('show');
+  document.getElementById('otp-s'+to).classList.add('show');
+}
+
+function verifyCurPwd(){
+  const entered = document.getElementById('cur-pwd').value;
+  const msg = document.getElementById('s1-msg');
+  if(!entered){ msg.style.color='#e74c3c'; msg.textContent='❌ Password खाली नहीं होना चाहिए'; return; }
+  if(entered !== APP_PWD){ msg.style.color='#e74c3c'; msg.textContent='❌ Current password गलत है'; return; }
+
+  // Generate 6-digit OTP
+  generatedOTP = String(Math.floor(100000 + Math.random()*900000));
+  otpExpired = false;
+  msg.textContent='';
+
+  // Show OTP on screen (in real app → send via SMS/email)
+  document.getElementById('otp-show').textContent = generatedOTP;
+  document.getElementById('otp-enter').value='';
+  document.getElementById('s2-msg').textContent='';
+
+  // Start 60s countdown
+  let secs = 60;
+  document.getElementById('otp-timer').textContent = secs+'s';
+  if(otpTimer) clearInterval(otpTimer);
+  otpTimer = setInterval(()=>{
+    secs--;
+    document.getElementById('otp-timer').textContent = secs+'s';
+    if(secs <= 0){
+      clearInterval(otpTimer);
+      otpExpired = true;
+      document.getElementById('otp-show').textContent = '------';
+      document.getElementById('otp-timer').textContent = 'EXPIRED';
+      document.getElementById('s2-msg').style.color='#e74c3c';
+      document.getElementById('s2-msg').textContent='⏱ OTP expire हो गया। फिर से try करें।';
+    }
+  }, 1000);
+
+  goOtpStep(1, 2);
+}
+
+function verifyOtp(){
+  const entered = document.getElementById('otp-enter').value.trim();
+  const msg = document.getElementById('s2-msg');
+  if(otpExpired){ msg.style.color='#e74c3c'; msg.textContent='⏱ OTP expire हो गया। Cancel करके फिर try करें।'; return; }
+  if(!entered){ msg.style.color='#e74c3c'; msg.textContent='❌ OTP डालें'; return; }
+  if(entered !== generatedOTP){ msg.style.color='#e74c3c'; msg.textContent='❌ OTP गलत है'; return; }
+
+  clearInterval(otpTimer);
+  document.getElementById('new-pwd1').value='';
+  document.getElementById('new-pwd2').value='';
+  document.getElementById('s3-msg').textContent='';
+  goOtpStep(2, 3);
+}
+
+function setNewPassword(){
+  const p1 = document.getElementById('new-pwd1').value;
+  const p2 = document.getElementById('new-pwd2').value;
+  const msg = document.getElementById('s3-msg');
+  if(!p1){ msg.style.color='#e74c3c'; msg.textContent='❌ New password खाली नहीं होना चाहिए'; return; }
+  if(p1.length < 6){ msg.style.color='#e74c3c'; msg.textContent='❌ Password कम से कम 6 characters का होना चाहिए'; return; }
+  if(p1 !== p2){ msg.style.color='#e74c3c'; msg.textContent='❌ दोनों passwords match नहीं कर रहे'; return; }
+
+  // Update password
+  APP_PWD = p1;
+  generatedOTP = '';
+  goOtpStep(3, 4);
+}
+// ══════════════════════════════════
+const YF_SYMBOLS={
+  "NIFTY":"^NSEI","SENSEX":"^BSESN","GOLD":"GC=F",
+  "RELIANCE":"RELIANCE.NS","TCS":"TCS.NS","HDFCBANK":"HDFCBANK.NS",
+  "SBIN":"SBIN.NS","TATAMOTORS":"TATAMOTORS.NS","INFY":"INFY.NS"
+};
+
+async function fetchYahooPrice(symbol){
+  try{
+    const url=`https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?interval=1m&range=1d`;
+    const res=await fetch(url);
+    if(!res.ok)return null;
+    const data=await res.json();
+    const meta=data?.chart?.result?.[0]?.meta;
+    return meta?{price:meta.regularMarketPrice,chg:meta.regularMarketChangePercent}:null;
+  }catch(e){return null;}
+}
+
+async function updateLivePrices(){
+  const pairs=[
+    {sym:"^NSEI",el:"h-nifty"}
+  ];
+  for(const u of pairs){
+    const d=await fetchYahooPrice(u.sym);
+    if(d){
+      const el=document.getElementById(u.el);
+      if(el)el.textContent=d.price.toLocaleString("en-IN",{maximumFractionDigits:2});
+    }
+  }
+  if(currentSym&&YF_SYMBOLS[currentSym]){
+    const d=await fetchYahooPrice(YF_SYMBOLS[currentSym]);
+    if(d&&d.price>0){
+      currentLTP=d.price;
+      const pg=document.querySelector(".page.active");
+      if(pg&&pg.id==="pg-chart"){
+        document.getElementById("c-ltp").textContent=d.price.toFixed(2);
+        const isUp=d.chg>=0;
+        document.getElementById("c-ltp").style.color=isUp?"#2ecc71":"#e74c3c";
+        document.getElementById("c-chg").textContent=(isUp?"▲ +":"▼ ")+Math.abs(d.chg).toFixed(2)+"%";
+        document.getElementById("c-chg").style.color=isUp?"#2ecc71":"#e74c3c";
+      }
+    }
+  }
+}
+
+window.addEventListener("resize",()=>{
+  const pg=document.querySelector(".page.active");
+  if(pg&&pg.id==="pg-chart")drawMain();
+});
+
+// INIT
+candles=genCandles(90,currentLTP,.008);
+buildBoxes();
+// Auto fetch live prices every 30 seconds
+setInterval(updateLivePrices,30000);
+</script>
+</body>
+</html>
