@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>👁 TRINETRA</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700;800&family=Orbitron:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/login.css">
+<link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+
+<!-- LOGIN SCREEN -->
+<div id="loginContainer"></div>
+
+<!-- MAIN APP -->
+<div class="app" id="appShell" style="display:none">
+  <!-- SWIPE CONTAINER WITH 6 PAGES -->
+  <div class="swiper" id="swiper">
+    <div id="page-home-container"></div>
+    <div id="page-signal-container"></div>
+    <div id="page-power-container"></div>
+    <div id="page-chart-container"></div>
+    <div id="page-watchlist-container"></div>
+    <div id="page-admin-container"></div>
+  </div>
+
+  <!-- PAGE INDICATOR DOTS -->
+  <div class="dots">
+    <div class="dot active"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+
+  <!-- BOTTOM NAV - 6 ICONS -->
+  <div class="nav">
+    <button class="nav-btn active" onclick="navTo(0)">
+      <div class="nav-ico">🏠</div><div class="nav-lbl">HOME</div>
+    </button>
+    <button class="nav-btn" onclick="navTo(1)">
+      <div class="nav-ico">📡</div><div class="nav-lbl">SIGNAL</div>
+    </button>
+    <button class="nav-btn" onclick="navTo(2)">
+      <div class="nav-ico">⚡</div><div class="nav-lbl">POWER</div>
+    </button>
+    <button class="nav-btn" onclick="navTo(3)">
+      <div class="nav-ico">📊</div><div class="nav-lbl">CHART</div>
+    </button>
+    <button class="nav-btn" onclick="navTo(4)">
+      <div class="nav-ico">⭐</div><div class="nav-lbl">WATCH</div>
+    </button>
+    <button class="nav-btn" onclick="navTo(5)">
+      <div class="nav-ico">⚙️</div><div class="nav-lbl">ADMIN</div>
+    </button>
+  </div>
+</div>
+
+<!-- LOAD PAGES DYNAMICALLY -->
+<script>
+async function loadPage(file, target) {
+  try {
+    const res = await fetch('pages/' + file);
+    const html = await res.text();
+    document.getElementById(target).innerHTML = html;
+  } catch (e) {
+    console.error('Load fail:', file, e);
+  }
+}
+
+async function loadAllPages() {
+  await Promise.all([
+    loadPage('login.html', 'loginContainer'),
+    loadPage('home.html', 'page-home-container'),
+    loadPage('signal.html', 'page-signal-container'),
+    loadPage('power.html', 'page-power-container'),
+    loadPage('chart.html', 'page-chart-container'),
+    loadPage('watchlist.html', 'page-watchlist-container'),
+    loadPage('admin.html', 'page-admin-container'),
+  ]);
+  // Now load app logic
+  const dataScript = document.createElement('script');
+  dataScript.src = 'js/data.js';
+  document.body.appendChild(dataScript);
+  dataScript.onload = () => {
+    const appScript = document.createElement('script');
+    appScript.src = 'js/app.js';
+    document.body.appendChild(appScript);
+  };
+}
+
+loadAllPages();
+</script>
+
+</body>
+</html>
