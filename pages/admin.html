@@ -1,0 +1,34 @@
+<!-- ADMIN PAGE -->
+<div class="page" id="page-admin">
+  <div class="ad-h"><div class="ad-t">👁 MASTER CONTROL</div></div>
+  <div class="ad-c">
+    <div class="prof">
+      <div class="prof-l">
+        <div class="av" id="avLetter">T<div class="av-d"></div></div>
+        <div class="prof-i">
+          <div class="prof-id" id="profId">ID: Trader007</div>
+          <div class="prof-st"><div class="s-dot"></div>ACTIVE · PEPPERSTONE</div>
+          <div class="prof-c">📞 +91 98XXX XXXXX</div>
+          <div class="prof-c">📧 trader@trinetra.ai</div>
+        </div>
+      </div>
+      <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">☀️ LIGHT</button>
+    </div>
+    <div class="pnl">
+      <div class="tabs">
+        <button class="tab active" onclick="setTab(this,'1D')">1 DAY</button>
+        <button class="tab" onclick="setTab(this,'1W')">1 WEEK</button>
+        <button class="tab" onclick="setTab(this,'1M')">1 MONTH</button>
+      </div>
+      <div class="pnl-m">
+        <span class="pnl-l">💰 NET P&L:</span>
+        <span class="pnl-v" id="pnlVal">+$245.50</span>
+      </div>
+      <div class="pnl-s">
+        <span>📊 Trades: <b id="trades">14</b></span>
+        <span>🎯 Acc: <b id="acc">78%</b></span>
+      </div>
+    </div>
+    <button class="logout-btn" onclick="doLogout()">⏻ LOGOUT</button>
+  </div>
+</div>

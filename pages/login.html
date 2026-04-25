@@ -1,0 +1,70 @@
+<!-- LOGIN PAGE - included by index.html -->
+<div class="login" id="loginScreen">
+  <div class="lg-head">
+    <div class="lg-eye">👁</div>
+    <div class="lg-name">TRINETRA</div>
+    <div class="lg-sub">FOREX · COMMODITY · OPTIONS</div>
+  </div>
+  <div class="lg-form">
+    <div>
+      <label class="lg-lbl">FULL NAME</label>
+      <div class="lg-wrap">
+        <span class="lg-ico">👤</span>
+        <input class="lg-inp" type="text" id="fullName" placeholder="Your name" value="Trader">
+      </div>
+    </div>
+    <div>
+      <label class="lg-lbl">PHONE</label>
+      <div class="lg-wrap">
+        <span class="lg-ico">📱</span>
+        <input class="lg-inp" type="tel" placeholder="+91 XXXXX" value="9800000000">
+      </div>
+    </div>
+    <div>
+      <label class="lg-lbl">EMAIL</label>
+      <div class="lg-wrap">
+        <span class="lg-ico">✉️</span>
+        <input class="lg-inp" type="email" placeholder="email" value="trader@trinetra.ai">
+      </div>
+    </div>
+    <div>
+      <label class="lg-lbl">PASSWORD</label>
+      <div class="lg-wrap">
+        <span class="lg-ico">🔒</span>
+        <input class="lg-inp" type="password" placeholder="Password" value="demo123">
+      </div>
+    </div>
+    <div>
+      <label class="lg-lbl">BROKER</label>
+      <div class="lg-wrap">
+        <span class="lg-ico">🏦</span>
+        <select class="lg-sel">
+          <option>Pepperstone</option>
+          <option>Interactive Brokers (NSE/BSE)</option>
+          <option>Saxo Bank (Global+India)</option>
+          <option>IC Markets</option>
+          <option>Exness</option>
+          <option>OANDA</option>
+        </select>
+        <span class="lg-arr">▼</span>
+      </div>
+    </div>
+    <button class="lg-btn" onclick="doLogin()">👁 LOGIN / REGISTER</button>
+    <div class="lg-div"><div class="lg-dl"></div><div class="lg-dt">OR</div><div class="lg-dl"></div></div>
+    <div class="lg-alt">
+      <button class="lg-altb" onclick="doBio()">🌐 Gmail</button>
+      <button class="lg-altb" onclick="doBio()">👆 Biometric</button>
+    </div>
+    <div class="lg-bio" onclick="doBio()">
+      <div class="lg-biob">👆</div>
+      <div>
+        <div style="font-size:12px;font-weight:800">TOUCH TO UNLOCK</div>
+        <div style="font-size:10px;color:var(--dim)">Fingerprint / Face ID</div>
+      </div>
+    </div>
+    <button class="lg-panic" onclick="panicExit()">🚨 PANIC EXIT — सब CLOSE</button>
+  </div>
+  <div class="lg-foot">
+    <div class="lg-sec"><div class="s-dot"></div><span>Biometric · TOTP · Broker · AWS · Gemini AI</span></div>
+  </div>
+</div>

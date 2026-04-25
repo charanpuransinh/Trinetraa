@@ -1,0 +1,36 @@
+<!-- CHART PAGE -->
+<div class="page" id="page-chart">
+  <div class="ch-h">
+    <div>
+      <div class="ch-name" id="chName">EUR/USD</div>
+      <div class="ch-leg">
+        <span style="color:var(--gold)">─ EMA</span>
+        <span style="color:#64b5f6">- - VWAP</span>
+      </div>
+    </div>
+    <div class="ch-r">
+      <div class="ch-pr" id="chPr">$1.0845</div>
+      <div class="ch-cg up" id="chCg">▲ +0.21%</div>
+    </div>
+  </div>
+  <div class="tf-r">
+    <div class="tf" onclick="setTF(this)">1m</div>
+    <div class="tf" onclick="setTF(this)">5m</div>
+    <div class="tf active" onclick="setTF(this)">10m</div>
+    <div class="tf" onclick="setTF(this)">15m</div>
+    <div class="tf" onclick="setTF(this)">1h</div>
+    <input class="ch-srch" id="chSrch" placeholder="🔍 Search" onkeypress="if(event.key==='Enter')loadStock()"/>
+  </div>
+  <div class="ch-wrap">
+    <svg class="ch-svg" id="chSvg" viewBox="0 0 400 260" preserveAspectRatio="none"></svg>
+    <div class="ch-lbl" id="chLbl">1.0845</div>
+  </div>
+  <div class="zm">
+    <div class="zm-i" id="zmInfo">ZOOM 2× — 60 candles</div>
+    <div class="zm-btns">
+      <button class="zm-b minus" onclick="chZoom(-1)">−</button>
+      <button class="zm-b plus" onclick="chZoom(1)">+</button>
+    </div>
+  </div>
+  <div class="ind-g" id="indGrid"></div>
+</div>
