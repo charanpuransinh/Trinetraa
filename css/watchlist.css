@@ -1,0 +1,209 @@
+/* ═══════════════════════════════════════════════
+   WATCHLIST PAGE STYLES
+   ═══════════════════════════════════════════════ */
+
+.wl-controls {
+  flex-shrink:0;
+  padding:8px 10px;
+  background:var(--bg2);
+  border-bottom:1px solid var(--border);
+  display:flex;
+  gap:8px;
+  align-items:center;
+}
+
+.search-input {
+  flex:1;
+  background:var(--bg3);
+  border:1px solid var(--bordergold);
+  padding:6px 10px;
+  color:var(--text);
+  font-size:11px;
+  outline:none;
+}
+
+.search-input:focus { border-color:var(--gold); }
+
+.sort-btn {
+  background:var(--gold);
+  color:#000;
+  padding:6px 12px;
+  border:none;
+  cursor:pointer;
+  font-weight:800;
+  font-size:10px;
+  letter-spacing:1px;
+}
+
+/* Table Header */
+.table-head {
+  flex-shrink:0;
+  display:grid;
+  grid-template-columns:0.5fr 1.5fr 1.2fr 0.8fr 0.9fr 0.7fr;
+  background:var(--bg3);
+  border-bottom:2px solid var(--gold);
+  border-top:1px solid var(--bordergold);
+}
+
+.th-cell {
+  padding:10px 4px;
+  text-align:center;
+  font-size:10px;
+  font-weight:700;
+  color:var(--gold);
+  letter-spacing:1px;
+  border-right:1px solid var(--bordergold);
+}
+
+.th-cell:last-child { border-right:none; }
+
+/* Table Body (Scrollable) */
+.table-body {
+  flex:1;
+  overflow-y:auto;
+  background:var(--bg);
+  scrollbar-width:thin;
+  scrollbar-color:var(--gold) var(--bg3);
+}
+
+.table-body::-webkit-scrollbar { width:4px; }
+.table-body::-webkit-scrollbar-track { background:var(--bg3); }
+.table-body::-webkit-scrollbar-thumb { background:var(--gold); }
+
+.tr-row {
+  display:grid;
+  grid-template-columns:0.5fr 1.5fr 1.2fr 0.8fr 0.9fr 0.7fr;
+  border-bottom:1px solid var(--border);
+}
+
+.tr-row:active { background:#1a0d00; }
+
+.td-cell {
+  padding:12px 4px;
+  text-align:center;
+  font-size:12px;
+  font-weight:700;
+  border-right:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.td-cell:last-child { border-right:none; }
+
+.td-num {
+  color:var(--text);
+  font-weight:600;
+  font-size:11px;
+}
+
+.td-stock {
+  color:var(--gold);
+  cursor:pointer;
+  font-weight:800;
+}
+
+.td-price {
+  color:var(--text);
+  cursor:pointer;
+  font-family:'Orbitron',sans-serif;
+  font-size:11px;
+}
+
+.td-scan {
+  color:var(--orange);
+  cursor:pointer;
+  font-weight:700;
+  font-size:11px;
+}
+
+.td-sig.buy {
+  color:var(--green);
+  font-weight:800;
+}
+
+.td-sig.sell {
+  color:var(--red);
+  font-weight:800;
+}
+
+.td-score {
+  color:var(--gold);
+  font-family:'Orbitron',sans-serif;
+  font-weight:800;
+  font-size:13px;
+}
+
+/* Trade Setup Popup */
+.trade-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:6px;
+}
+
+.tr-gbox {
+  background:var(--bg3);
+  border:1px solid;
+  padding:12px 8px;
+  text-align:center;
+}
+
+.tr-gbox.entry { border-color:var(--gold); }
+.tr-gbox.exit { border-color:#2979FF; }
+.tr-gbox.sl { border-color:var(--red); }
+.tr-gbox.tsl { border-color:var(--orange); }
+.tr-gbox.t1, .tr-gbox.t2 { border-color:var(--green); }
+.tr-gbox.t3 {
+  border-color:#00ff7a;
+  background:#002a14;
+}
+
+.tr-gbox .tr-lbl-in {
+  font-size:9px;
+  letter-spacing:1.5px;
+  font-weight:700;
+  margin-bottom:4px;
+}
+
+.tr-gbox.entry .tr-lbl-in { color:var(--gold); }
+.tr-gbox.exit .tr-lbl-in { color:#2979FF; }
+.tr-gbox.sl .tr-lbl-in { color:var(--red); }
+.tr-gbox.tsl .tr-lbl-in { color:var(--orange); }
+.tr-gbox.t1 .tr-lbl-in,
+.tr-gbox.t2 .tr-lbl-in,
+.tr-gbox.t3 .tr-lbl-in { color:var(--green); }
+
+.tr-gbox .tr-val-in {
+  font-size:17px;
+  font-weight:800;
+  color:var(--text);
+  font-family:'Orbitron',sans-serif;
+}
+
+/* OHLC Popup */
+.ohlc-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:6px;
+}
+
+.ohlc-box {
+  background:var(--bg3);
+  border:1px solid var(--bordergold);
+  padding:14px 8px;
+  text-align:center;
+}
+
+.ohlc-lbl {
+  font-size:10px;
+  color:var(--dim);
+  letter-spacing:2px;
+  margin-bottom:5px;
+}
+
+.ohlc-val {
+  font-size:18px;
+  font-weight:800;
+  color:var(--text);
+  font-family:'Orbitron',sans-serif;
+}

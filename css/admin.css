@@ -1,0 +1,270 @@
+/* ═══════════════════════════════════════════════
+   ADMIN / MASTER CONTROL PAGE STYLES
+   ═══════════════════════════════════════════════ */
+
+.ad-header {
+  flex-shrink:0;
+  background:var(--bg2);
+  border-bottom:2px solid var(--gold);
+  padding:12px 14px;
+  text-align:center;
+}
+
+.ad-title {
+  font-family:'Orbitron',sans-serif;
+  font-size:16px;
+  font-weight:900;
+  color:var(--gold);
+  letter-spacing:2.5px;
+}
+
+.ad-content {
+  flex:1;
+  padding:8px;
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+  overflow:hidden;
+}
+
+/* Profile Card */
+.profile-card {
+  background:var(--bg3);
+  border:1px solid var(--bordergold);
+  padding:12px 14px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-shrink:0;
+  position:relative;
+  overflow:hidden;
+}
+
+.profile-card::before {
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  height:2px;
+  background:var(--gold);
+}
+
+.pr-left-wrap {
+  display:flex;
+  gap:12px;
+  align-items:center;
+  flex:1;
+  min-width:0;
+}
+
+.pr-avatar {
+  width:46px;
+  height:46px;
+  background:var(--gold);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  font-weight:900;
+  color:#000;
+  font-family:'Orbitron',sans-serif;
+  position:relative;
+  flex-shrink:0;
+}
+
+.active-dot {
+  position:absolute;
+  bottom:-2px;
+  right:-2px;
+  width:12px;
+  height:12px;
+  background:var(--green);
+  border:2px solid var(--bg3);
+}
+
+.pr-info {
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  min-width:0;
+  flex:1;
+}
+
+.pr-id {
+  font-family:'Orbitron',sans-serif;
+  font-size:14px;
+  font-weight:900;
+  color:var(--gold);
+  letter-spacing:1px;
+}
+
+.pr-status {
+  font-size:9px;
+  color:var(--green);
+  font-weight:700;
+  letter-spacing:1px;
+  display:flex;
+  align-items:center;
+  gap:4px;
+}
+
+.active-ldot {
+  width:5px;
+  height:5px;
+  background:var(--green);
+  animation:blink 1.5s infinite;
+}
+
+.pr-contact {
+  font-size:9px;
+  color:var(--dim);
+}
+
+.theme-btn {
+  background:var(--gold);
+  color:#000;
+  padding:9px 14px;
+  border:none;
+  cursor:pointer;
+  font-weight:800;
+  font-size:10px;
+  letter-spacing:1.5px;
+}
+
+/* P&L Card */
+.pnl-card {
+  background:var(--bg3);
+  border:1px solid var(--bordergold);
+  padding:12px;
+  flex-shrink:0;
+}
+
+.tabs {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:4px;
+  margin-bottom:10px;
+}
+
+.tab {
+  padding:8px;
+  background:var(--bg4);
+  border:1px solid var(--border);
+  color:var(--gold);
+  cursor:pointer;
+  font-weight:700;
+  font-size:10px;
+  letter-spacing:1px;
+}
+
+.tab.active {
+  background:var(--gold);
+  color:#000;
+  border-color:var(--gold);
+}
+
+.pnl-main {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:4px 0;
+}
+
+.pnl-label {
+  font-size:13px;
+  font-weight:700;
+  color:var(--text);
+}
+
+.pnl-value {
+  font-family:'Orbitron',sans-serif;
+  font-size:22px;
+  font-weight:900;
+  color:var(--green);
+}
+
+.pnl-stats {
+  display:flex;
+  justify-content:space-between;
+  font-size:10px;
+  color:var(--dim);
+  margin-top:6px;
+  padding-top:6px;
+  border-top:1px solid var(--border);
+}
+
+.pnl-stats b {
+  color:var(--green);
+  font-weight:800;
+}
+
+/* Control Menu */
+.ctrl-list {
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  border:1px solid var(--bordergold);
+  min-height:0;
+  overflow:hidden;
+}
+
+.ctrl-item {
+  background:var(--bg3);
+  padding:12px 14px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid var(--border);
+  flex:1;
+}
+
+.ctrl-item:last-child { border-bottom:none; }
+
+.ci-name {
+  font-size:12px;
+  font-weight:700;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.ci-icon { font-size:16px; }
+
+.go-btn {
+  background:var(--blue);
+  color:#fff;
+  padding:7px 18px;
+  border:none;
+  cursor:pointer;
+  font-weight:800;
+  font-size:11px;
+  letter-spacing:1px;
+}
+
+/* Action Buttons */
+.pw-btn {
+  width:100%;
+  background:var(--blue);
+  color:#fff;
+  padding:11px;
+  border:none;
+  cursor:pointer;
+  font-weight:800;
+  font-size:11px;
+  letter-spacing:1.5px;
+  flex-shrink:0;
+}
+
+.logout-btn {
+  width:100%;
+  background:linear-gradient(135deg, #8b0000, var(--red));
+  color:#fff;
+  padding:13px;
+  border:none;
+  cursor:pointer;
+  font-weight:900;
+  font-size:12px;
+  letter-spacing:2px;
+  flex-shrink:0;
+}
