@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>TRINETRA FINAL</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700;800&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/login.css">
+<link rel="stylesheet" href="css/pages.css">
+<style>
+body,html{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#000!important}
+.app-shell-final{width:100vw;height:100vh;display:flex;flex-direction:column;overflow:hidden;position:relative;background:#000}
+/* TOP BAR - LOGO LEFT, EXIT RIGHT */
+.custom-top-header{display:flex!important;justify-content:space-between!important;align-items:center!important;padding:10px 15px!important;background:#0a0a0a!important;border-bottom:2px solid #ff6d0080!important;z-index:9999!important;flex-shrink:0}
+.exit-btn-fixed{width:34px!important;height:34px!important;border-radius:50%!important;background:rgba(255,61,61,0.2)!important;border:2px solid #ff3d3d!important;color:#ff3d3d!important;font-size:16px!important;font-family:'Orbitron',sans-serif!important;font-weight:900!important;display:flex!important;align-items:center!important;justify-content:center!important;cursor:pointer!important;box-shadow:0 0 10px rgba(255,61,61,0.4)!important}
+.swiper-final{flex:1;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.swiper-final::-webkit-scrollbar{display:none}
+.page-slide-final{min-width:100vw;width:100vw;height:100%;scroll-snap-align:start;flex-shrink:0;overflow-y:auto}
+.nav-final{height:70px;background:#0a0a0a;border-top:1px solid #ff6d0040;display:flex;flex-shrink:0;padding-bottom:env(safe-area-inset-bottom)}
+</style>
+</head>
+<body>
+<div id="loginContainer"></div>
+<div class="app-shell-final" id="appShell" style="display:none">
+<div class="custom-top-header">
+<div style="color:#ff6d00;font-family:'Orbitron';font-size:18px;font-weight:900;letter-spacing:2px">TRINETRA</div>
+<div class="exit-btn-fixed" onclick="location.reload()">X</div>
+</div>
+<div class="swiper-final" id="swiper">
+<div class="page-slide-final" id="page-home-container"></div>
+<div class="page-slide-final" id="page-signal-container"></div>
+<div class="page-slide-final" id="page-power-container"></div>
+<div class="page-slide-final" id="page-chart-container"></div>
+<div class="page-slide-final" id="page-watchlist-container"></div>
+<div class="page-slide-final" id="page-admin-container"></div>
+</div>
+<div class="nav-final">
+<button class="nav-btn active" onclick="navTo(0)"><div class="nav-ico">🏠</div><div class="nav-lbl">HOME</div></button>
+<button class="nav-btn" onclick="navTo(1)"><div class="nav-ico">📡</div><div class="nav-lbl">SIG</div></button>
+<button class="nav-btn" onclick="navTo(2)"><div class="nav-ico">⚡</div><div class="nav-lbl">PWR</div></button>
+<button class="nav-btn" onclick="navTo(3)"><div class="nav-ico">📊</div><div class="nav-lbl">CHART</div></button>
+<button class="nav-btn" onclick="navTo(4)"><div class="nav-ico">⭐</div><div class="nav-lbl">WATCH</div></button>
+<button class="nav-btn" onclick="navTo(5)"><div class="nav-ico">⚙️</div><div class="nav-lbl">ADMIN</div></button>
+</div>
+</div>
+<script>
+async function loadPage(f,t){try{const r=await fetch('pages/'+f);const h=await r.text();document.getElementById(t).innerHTML=h}catch(e){}}
+async function loadAllPages(){await Promise.all([loadPage('login.html','loginContainer'),loadPage('home.html','page-home-container'),loadPage('signal.html','page-signal-container'),loadPage('power.html','page-power-container'),loadPage('chart.html','page-chart-container'),loadPage('watchlist.html','page-watchlist-container'),loadPage('admin.html','page-admin-container')]);
+const d=document.createElement('script');d.src='js/data.js';document.body.appendChild(d);
+const m=document.createElement('script');m.src='js/main.js';document.body.appendChild(m)}
+window.onload=loadAllPages;
+function navTo(i){const s=document.getElementById('swiper');s.scrollTo({left:i*window.innerWidth,behavior:'smooth'});
+const b=document.querySelectorAll('.nav-btn');b.forEach((x,y)=>{if(y===i)x.classList.add('active');else x.classList.remove('active')})}
+</script>
+</body>
+</html>
