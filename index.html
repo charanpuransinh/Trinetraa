@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>TRINETRA</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700;800&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/login.css">
+<link rel="stylesheet" href="css/pages.css">
+<style>
+  /* Base Layout Fixes */
+  body, html {
+    margin: 0; padding: 0;
+    width: 100%; height: 100%;
+    overflow: hidden; background: #000;
+  }
+  .app {
+    width: 100vw !important;
+    height: 100vh !important;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    background: #000;
+  }
+  
+  /* Top Header with Logo and Round Exit Button */
+  .top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background: #0a0a0a;
+    border-bottom: 1px solid #ff6d0040;
+    z-index: 1000;
+    flex-shrink: 0;
+  }
+
+  .exit-btn-round {
+    width: 32px;
+    height: 32px;
+    border-radius: 50% !important;
+    background: rgba(255, 61, 61, 0.1);
+    border: 1px solid #ff3d3d;
+    color: #ff3d3d;
+    font-size: 14px;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .exit-btn-round:active {
+    background: #ff3d3d;
+    color: #000;
+  }
+
+  /* Swipe Container */
+  .swiper {
+    flex: 1;
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+  .swiper::-webkit-scrollbar { display: none; }
+
+  /* Page container full width */
+  #page-home-container, #page-signal-container, #page-power-container, 
+  #page-chart-container, #page-watchlist-container, #page-admin-container {
+    min-width: 100vw;
+    width: 100vw;
+    height: 100%;
+    scroll-snap-align: start;
+    flex-shrink: 0;
+    overflow-y: auto;
+  }
+
+  /* Fixed Bottom Navigation */
+  .nav {
+    height: 70px;
+    background: #0a0a0a;
+    border-top: 1px solid #ff6d0040;
+    display: flex;
+    padding-bottom: env(safe-area-inset-bottom);
+    flex-shrink: 0;
+  }
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+
+<div id="loginContainer"></div>
+
+<div class="app" id="appShell" style="display:none">
+  
+  <div class="top-header">
+    <div style="color:#ff6d00; font-family:'Orbitron'; font-size:18px; font-weight:900; letter-spacing:1.5px;">TRINETRA</div>
+    <div class="exit-btn-round" onclick="location.reload()">X</div>
+  </div>
+
+  <div class="swiper" id="swiper">
+    <div id="page-home-container"></div>
+    <div id="page-signal-container"></div>
+    <div id="page-power-container"></div>
+    <div id="page-chart-container"></div>
+    <div id="page-watchlist-container"></div>
+    <div id="page-admin-container"></div>
+  </div>
+
+  <div class="nav">
+    <button class="nav-btn active" onclick="navTo(0)">
+      <div class="nav-ico">🏠</div><div class="nav-lbl">HOME</div>
+    </button>
+    <button class="nav-btn" onclick="navTo(1)">
+      <div class="nav-ico">📡</div><div class="nav-lbl">SIG</div>
+    </button>
+    <button class="nav-btn" onclick="navTo(2)">
+      <div class="nav-ico">⚡</div><div class="nav-lbl">PWR</div>
+    </button>
+    <button class="nav-btn" onclick="navTo(3)">
+      <div class="nav-ico">📊</div><div class="nav-lbl">CHART</div>
+    </button>
+    <button class="nav-btn" onclick="navTo(4)">
+      <div class="nav-ico">⭐</div><div class="nav-lbl">WATCH</div>
+    </button>
+    <button class="nav-btn" onclick="navTo(5)">
+      <div class="nav-ico">⚙️</div><div class="nav-lbl">ADMIN</div>
+    </button>
+  </div>
+</div>
+
+<script>
+// Load HTML for each tab
+async function loadPage(file, target) {
+  try {
+    const res = await fetch('pages/' + file);
+    const html = await res.text();
+    document.getElementById(target).innerHTML = html;
+  } catch (e) { console.error('Error loading:', file); }
+}
+
+async function loadAllPages() {
+  await Promise.all([
+    loadPage('login.html', 'loginContainer'),
+    loadPage('home.html', 'page-home-container'),
+    loadPage('signal.html', 'page-signal-container'),
+    loadPage('power.html', 'page-power-container'),
+    loadPage('chart.html', 'page-chart-container'),
+    loadPage('watchlist.html', 'page-watchlist-container'),
+    loadPage('admin.html', 'page-admin-container'),
+  ]);
+  
+  // Connect JS logic
+  const ds = document.createElement('script'); ds.src = 'js/data.js'; document.body.appendChild(ds);
+  const ms = document.createElement('script'); ms.src = 'js/main.js'; document.body.appendChild(ms);
+}
+
+window.onload = loadAllPages;
+
+// Tab Switching Logic
+function navTo(idx) {
+  const swiper = document.getElementById('swiper');
+  swiper.scrollTo({ left: idx * window.innerWidth, behavior: 'smooth' });
+  
+  // Highlight active button
+  const btns = document.querySelectorAll('.nav-btn');
+  btns.forEach((b, i) => {
+    if(i === idx) b.classList.add('active');
+    else b.classList.remove('active');
+  });
+}
+</script>
+
+</body>
+</html>
