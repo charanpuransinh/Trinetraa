@@ -1,7 +1,130 @@
-/* TRINETRA - Master Stylesheet */
+/* ================================================
+   TRINETRA — Master Stylesheet
+   Mogal Industries · Raksha · Author: Charan
+   
+   ⚡ COLOR THEME SWITCHER ⚡
+   Default = Orange. To change theme, just swap
+   the :root block below with one of the alternatives
+   ================================================ */
+
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;font-family:'Rajdhani',sans-serif;border-radius:0!important}
-:root{--gold:#ff6d00;--gold2:#c95400;--bg:#000;--bg2:#0a0a0a;--bg3:#120b05;--bg4:#1a1208;--border:#2a1a0a;--bordergold:#4d2800;--text:#eee;--dim:#888;--green:#00c853;--red:#ff3d3d;--blue:#1976d2}
-body.light{--bg:#fff5ee;--bg2:#fff;--bg3:#fff0e5;--bg4:#ffe4d0;--border:#d0b0a0;--bordergold:#c95400;--text:#222;--dim:#666}
+
+/* ================================================
+   🟠 ACTIVE THEME — ORANGE (default)
+   ================================================ */
+:root{
+  --gold:#ff6d00;
+  --gold2:#c95400;
+  --bg:#000;
+  --bg2:#0a0a0a;
+  --bg3:#120b05;
+  --bg4:#1a1208;
+  --border:#2a1a0a;
+  --bordergold:#4d2800;
+  --text:#eee;
+  --dim:#888;
+  --green:#00c853;
+  --red:#ff3d3d;
+  --blue:#1976d2;
+}
+
+/* ================================================
+   🟡 ALTERNATIVE THEME — GOLDEN YELLOW (classic Trishul)
+   To use: comment out the orange :root above,
+   then remove /* and */ around this block:
+
+/*
+:root{
+  --gold:#f5c518;
+  --gold2:#c9a000;
+  --bg:#000;
+  --bg2:#0a0a0a;
+  --bg3:#0c0c08;
+  --bg4:#1a1500;
+  --border:#2a2200;
+  --bordergold:#3d3000;
+  --text:#eee;
+  --dim:#888;
+  --green:#00c853;
+  --red:#ff3d3d;
+  --blue:#1976d2;
+}
+*/
+
+/* ================================================
+   🔵 ALTERNATIVE THEME — ELECTRIC BLUE
+/*
+:root{
+  --gold:#00b8ff;
+  --gold2:#0080cc;
+  --bg:#000;
+  --bg2:#050a10;
+  --bg3:#080d18;
+  --bg4:#0c1a2a;
+  --border:#1a2840;
+  --bordergold:#003a5a;
+  --text:#eee;
+  --dim:#7080a0;
+  --green:#00c853;
+  --red:#ff3d3d;
+  --blue:#1976d2;
+}
+*/
+
+/* ================================================
+   🟢 ALTERNATIVE THEME — MATRIX GREEN
+/*
+:root{
+  --gold:#00ff88;
+  --gold2:#00aa5a;
+  --bg:#000;
+  --bg2:#020a05;
+  --bg3:#051a0d;
+  --bg4:#0a2516;
+  --border:#1a3a25;
+  --bordergold:#005a30;
+  --text:#eee;
+  --dim:#5a8070;
+  --green:#00ff88;
+  --red:#ff3d3d;
+  --blue:#1976d2;
+}
+*/
+
+/* ================================================
+   🔴 ALTERNATIVE THEME — CRIMSON RED
+/*
+:root{
+  --gold:#ff2a5a;
+  --gold2:#a01030;
+  --bg:#000;
+  --bg2:#0a0506;
+  --bg3:#180a0d;
+  --bg4:#2a0e15;
+  --border:#3a1a20;
+  --bordergold:#5a0a1a;
+  --text:#eee;
+  --dim:#8a6065;
+  --green:#00c853;
+  --red:#ff3d3d;
+  --blue:#1976d2;
+}
+*/
+
+/* ================================================
+   LIGHT MODE (toggle by adding class="light" to body)
+   ================================================ */
+body.light{
+  --bg:#fff5ee;
+  --bg2:#fff;
+  --bg3:#fff0e5;
+  --bg4:#ffe4d0;
+  --border:#d0b0a0;
+  --bordergold:#c95400;
+  --text:#222;
+  --dim:#666;
+}
+
 html,body{height:100%;background:var(--bg);color:var(--text);overflow:hidden;transition:.3s}
 
 /* APP CONTAINER */
@@ -21,7 +144,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);overflow:hidden;tra
 /* BOTTOM NAV - 6 ICONS */
 .nav{flex-shrink:0;display:flex;background:var(--bg2);border-top:2px solid var(--gold);height:60px}
 .nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;background:none;border:none;padding:6px 2px;color:var(--dim)}
-.nav-btn:active{background:#1a0d00}
+.nav-btn:active{background:var(--bg3)}
 .nav-btn.active{color:var(--gold)}
 .nav-btn.active .nav-ico{filter:drop-shadow(0 0 6px var(--gold))}
 .nav-ico{font-size:22px;line-height:1}
