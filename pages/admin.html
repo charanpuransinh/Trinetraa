@@ -1,7 +1,13 @@
-<!-- ADMIN PAGE -->
+<!-- ADMIN / MASTER CONTROL PAGE -->
 <div class="page" id="page-admin">
-  <div class="ad-h"><div class="ad-t">👁 MASTER CONTROL</div></div>
+  <div class="topbar">
+    <div class="tb-title">👁 MASTER CONTROL</div>
+    <div class="tb-pill"><div class="live-dot"></div>ACTIVE</div>
+  </div>
+
   <div class="ad-c">
+
+    <!-- PROFILE CARD -->
     <div class="prof">
       <div class="prof-l">
         <div class="av" id="avLetter">T<div class="av-d"></div></div>
@@ -14,6 +20,8 @@
       </div>
       <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">☀️ LIGHT</button>
     </div>
+
+    <!-- P&L SECTION -->
     <div class="pnl">
       <div class="tabs">
         <button class="tab active" onclick="setTab(this,'1D')">1 DAY</button>
@@ -29,6 +37,61 @@
         <span>🎯 Acc: <b id="acc">78%</b></span>
       </div>
     </div>
+
+    <!-- BROKER STATUS -->
+    <div class="ad-section">
+      <div class="ad-section-title">🔌 BROKER STATUS</div>
+      <div class="broker-list">
+        <div class="broker-item">
+          <span class="broker-name">PEPPERSTONE</span>
+          <span class="broker-stat connected">● CONNECTED</span>
+        </div>
+        <div class="broker-item">
+          <span class="broker-name">YAHOO FINANCE</span>
+          <span class="broker-stat connected">● LIVE</span>
+        </div>
+        <div class="broker-item">
+          <span class="broker-name">OANDA</span>
+          <span class="broker-stat pending">○ PENDING</span>
+        </div>
+        <div class="broker-item">
+          <span class="broker-name">INTERACTIVE BROKERS</span>
+          <span class="broker-stat pending">○ PENDING</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCANNER TOGGLES -->
+    <div class="ad-section">
+      <div class="ad-section-title">⚙️ SCANNER TOGGLES</div>
+      <div class="toggle-list" id="scannerToggles"></div>
+    </div>
+
+    <!-- SIGNAL THRESHOLDS -->
+    <div class="ad-section">
+      <div class="ad-section-title">🎯 SIGNAL THRESHOLDS</div>
+      <div class="thr-list">
+        <div class="thr-row"><span>🟠 Orange Alert</span><span class="thr-val">55-60</span></div>
+        <div class="thr-row"><span>🟢 Confirmed BUY</span><span class="thr-val">61-75</span></div>
+        <div class="thr-row"><span>💚 Strong BUY</span><span class="thr-val">76-89</span></div>
+        <div class="thr-row"><span>✨ Ultra Strong</span><span class="thr-val">90+</span></div>
+      </div>
+    </div>
+
+    <!-- ABOUT -->
+    <div class="ad-section">
+      <div class="ad-section-title">ℹ️ ABOUT</div>
+      <div class="about-info">
+        <div>Project: <b style="color:var(--gold)">Mogal Industries · Raksha</b></div>
+        <div>App: <b style="color:var(--gold)">TRINETRA</b> (International)</div>
+        <div>Author: Charan</div>
+        <div>Markets: Forex / Crypto / Commodity / Currency</div>
+        <div>Scanners: 9</div>
+        <div>Version: 1.0.0</div>
+      </div>
+    </div>
+
     <button class="logout-btn" onclick="doLogout()">⏻ LOGOUT</button>
+
   </div>
 </div>
