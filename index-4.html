@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0a0a0a">
+<title>TRINETRA — Mogal Industries</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+
+<!-- Auto-redirect to login after 2.5 seconds -->
+<meta http-equiv="refresh" content="2.5;url=pages/login.html">
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+:root {
+  --gold:#f5c518; --gold2:#c9a000;
+  --bg:#0a0a0a; --bg3:#1a1a1a;
+  --border:#2a2a2a; --bordergold:#3d3000;
+  --text:#eee; --dim:#888; --dark:#444;
+  --green:#00c853; --red:#ff3d3d;
+}
+html,body { height:100%; background:var(--bg); color:var(--text); font-family:'Rajdhani',sans-serif; overflow:hidden; position:fixed; width:100%; }
+
+.splash {
+  height:100vh; max-width:420px; margin:0 auto;
+  display:flex; flex-direction:column;
+  background:var(--bg); position:relative; overflow:hidden;
+}
+
+/* Glow background */
+.splash::before {
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(circle at 50% 30%, rgba(245,197,24,0.15) 0%, transparent 60%);
+  pointer-events:none;
+}
+
+.topline { position:absolute; top:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent); z-index:5; }
+.bottomline { position:absolute; bottom:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent); z-index:5; }
+
+/* HERO */
+.hero {
+  flex:1; display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  gap:14px; position:relative; z-index:2;
+  padding:20px;
+}
+
+.eye-logo {
+  font-size:80px; line-height:1;
+  filter:drop-shadow(0 0 20px rgba(245,197,24,0.6));
+  animation:eyeFloat 3s ease-in-out infinite;
+}
+@keyframes eyeFloat {
+  0%,100% { transform:translateY(0) scale(1); }
+  50% { transform:translateY(-8px) scale(1.05); }
+}
+
+.app-name {
+  font-family:'Orbitron',sans-serif;
+  font-size:38px; font-weight:900;
+  color:var(--gold); letter-spacing:8px;
+  text-shadow:0 0 20px rgba(245,197,24,0.5);
+  animation:nameGlow 2s ease-in-out infinite;
+}
+@keyframes nameGlow {
+  0%,100% { text-shadow:0 0 20px rgba(245,197,24,0.5); }
+  50% { text-shadow:0 0 30px rgba(245,197,24,0.8); }
+}
+
+.app-tag {
+  font-size:10px; color:var(--dim);
+  letter-spacing:4px; font-weight:600;
+}
+
+.divider-row {
+  display:flex; align-items:center; gap:10px;
+  margin:8px 0;
+}
+.divider-row .dline {
+  width:30px; height:1px; background:var(--bordergold);
+}
+.divider-row .dico {
+  font-size:14px; color:var(--gold);
+}
+
+.subtitle {
+  font-size:11px; color:var(--text);
+  letter-spacing:3px; font-weight:600;
+  text-align:center;
+}
+.subtitle b { color:var(--gold); }
+
+/* LOADING BAR */
+.loader-wrap {
+  width:80%; max-width:280px;
+  margin-top:20px;
+}
+.loader-label {
+  display:flex; justify-content:space-between;
+  font-size:9px; color:var(--dim);
+  letter-spacing:2px; margin-bottom:6px;
+  font-weight:700;
+}
+.loader-label span:last-child { color:var(--gold); }
+.loader-bar {
+  height:4px; background:var(--bg3);
+  border:1px solid var(--bordergold);
+  position:relative; overflow:hidden;
+}
+.loader-fill {
+  position:absolute; top:0; left:0; bottom:0;
+  background:linear-gradient(90deg, var(--gold2), var(--gold));
+  width:0%;
+  animation:loadFill 2.5s ease-out forwards;
+  box-shadow:0 0 8px rgba(245,197,24,0.6);
+}
+@keyframes loadFill {
+  0% { width:0%; }
+  100% { width:100%; }
+}
+
+/* STATUS DOTS */
+.status-list {
+  margin-top:16px;
+  display:flex; flex-direction:column; gap:5px;
+  font-size:10px; color:var(--dim);
+  letter-spacing:1px;
+}
+.status-item {
+  display:flex; align-items:center; gap:8px;
+  opacity:0;
+}
+.status-item.s1 { animation:fadeIn 0.4s 0.3s forwards; }
+.status-item.s2 { animation:fadeIn 0.4s 0.8s forwards; }
+.status-item.s3 { animation:fadeIn 0.4s 1.4s forwards; }
+.status-item.s4 { animation:fadeIn 0.4s 2.0s forwards; }
+@keyframes fadeIn { to { opacity:1; } }
+
+.s-dot {
+  width:6px; height:6px; border-radius:50%;
+  background:var(--green); box-shadow:0 0 6px var(--green);
+  animation:blink 1s infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+.s-text b { color:var(--gold); }
+
+/* FOOTER */
+.foot {
+  flex-shrink:0; text-align:center;
+  padding:12px 20px 16px;
+  border-top:1px solid var(--border);
+  position:relative; z-index:2;
+}
+.foot-1 {
+  font-family:'Orbitron',sans-serif;
+  font-size:10px; color:var(--gold);
+  letter-spacing:3px; font-weight:700;
+}
+.foot-2 {
+  font-size:8px; color:var(--dark);
+  letter-spacing:2px; margin-top:3px;
+}
+
+/* ENTER BUTTON (manual fallback) */
+.enter-btn {
+  position:absolute; bottom:60px; left:50%;
+  transform:translateX(-50%);
+  background:linear-gradient(135deg,var(--gold2),var(--gold));
+  color:#000; border:none;
+  padding:8px 24px; font-size:11px; font-weight:700;
+  font-family:'Rajdhani',sans-serif; letter-spacing:2px;
+  cursor:pointer;
+  box-shadow:0 3px 14px rgba(245,197,24,0.3);
+  text-decoration:none;
+  display:inline-block;
+  opacity:0;
+  animation:fadeIn 0.4s 1.5s forwards;
+}
+.enter-btn:active { transform:translateX(-50%) scale(0.96); }
+
+/* PAGE LINKS GRID (for direct access if needed) */
+.menu-toggle {
+  position:absolute; top:14px; right:14px; z-index:10;
+  background:var(--bg3); border:1px solid var(--bordergold);
+  width:34px; height:34px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:14px; cursor:pointer;
+  color:var(--gold);
+}
+.menu-toggle:active { transform:scale(0.92); }
+
+.page-menu {
+  position:fixed; inset:0;
+  background:rgba(0,0,0,0.95);
+  display:none;
+  align-items:center; justify-content:center;
+  z-index:100;
+}
+.page-menu.show { display:flex; }
+.menu-box {
+  background:var(--bg3); border:2px solid var(--gold);
+  width:calc(100% - 32px); max-width:340px;
+  padding:18px;
+}
+.menu-title {
+  font-family:'Orbitron',sans-serif;
+  font-size:13px; color:var(--gold);
+  letter-spacing:2px; text-align:center;
+  margin-bottom:12px;
+  display:flex; justify-content:space-between; align-items:center;
+}
+.menu-close {
+  background:none; border:1px solid var(--border);
+  color:var(--dim); width:26px; height:26px;
+  font-size:14px; cursor:pointer;
+}
+.page-grid {
+  display:grid; grid-template-columns:1fr 1fr; gap:8px;
+}
+.page-link {
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:4px;
+  background:var(--bg); border:1px solid var(--bordergold);
+  padding:14px 8px; cursor:pointer;
+  text-decoration:none; color:var(--text);
+  transition:all 0.15s;
+}
+.page-link:active { background:#1a1600; border-color:var(--gold); }
+.pl-icon { font-size:22px; }
+.pl-name {
+  font-family:'Rajdhani',sans-serif;
+  font-size:11px; font-weight:700;
+  color:var(--gold); letter-spacing:1px;
+}
+</style>
+</head>
+<body>
+
+<div class="splash">
+  <div class="topline"></div>
+
+  <!-- Menu toggle (top-right) for direct page access -->
+  <div class="menu-toggle" onclick="toggleMenu()" title="All Pages">☰</div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="eye-logo">👁</div>
+    <div class="app-name">TRINETRA</div>
+    <div class="app-tag">FOREX · COMMODITY · OPTIONS</div>
+
+    <div class="divider-row">
+      <div class="dline"></div>
+      <div class="dico">🔱</div>
+      <div class="dline"></div>
+    </div>
+
+    <div class="subtitle">
+      <b>MOGAL INDUSTRIES</b> · RAKSHA<br>
+      <span style="font-size:9px;color:var(--dim);">INTERNATIONAL · SCANNER · SUITE</span>
+    </div>
+
+    <!-- LOADER -->
+    <div class="loader-wrap">
+      <div class="loader-label">
+        <span>INITIALIZING</span>
+        <span id="loadPct">0%</span>
+      </div>
+      <div class="loader-bar">
+        <div class="loader-fill"></div>
+      </div>
+    </div>
+
+    <!-- STATUS -->
+    <div class="status-list">
+      <div class="status-item s1">
+        <div class="s-dot"></div>
+        <div class="s-text">SCANNER ENGINE · <b>ACTIVE</b></div>
+      </div>
+      <div class="status-item s2">
+        <div class="s-dot"></div>
+        <div class="s-text">BROKER HANDSHAKE · <b>OK</b></div>
+      </div>
+      <div class="status-item s3">
+        <div class="s-dot"></div>
+        <div class="s-text">YAHOO FINANCE API · <b>LIVE</b></div>
+      </div>
+      <div class="status-item s4">
+        <div class="s-dot"></div>
+        <div class="s-text">GEMINI WATCHDOG · <b>ONLINE</b></div>
+      </div>
+    </div>
+
+    <!-- ENTER BUTTON -->
+    <a href="pages/login.html" class="enter-btn">👁 ENTER TERMINAL</a>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="foot">
+    <div class="foot-1">TRINETRA · v1.0</div>
+    <div class="foot-2">Mogal Industries © 2026 · Author: Charan</div>
+  </div>
+
+  <div class="bottomline"></div>
+</div>
+
+<!-- PAGE MENU OVERLAY -->
+<div class="page-menu" id="pageMenu" onclick="toggleMenu()">
+  <div class="menu-box" onclick="event.stopPropagation()">
+    <div class="menu-title">
+      <span>👁 ALL PAGES</span>
+      <button class="menu-close" onclick="toggleMenu()">✕</button>
+    </div>
+    <div class="page-grid">
+      <a class="page-link" href="pages/login.html">
+        <div class="pl-icon">🔐</div>
+        <div class="pl-name">LOGIN</div>
+      </a>
+      <a class="page-link" href="pages/home.html">
+        <div class="pl-icon">🏠</div>
+        <div class="pl-name">HOME</div>
+      </a>
+      <a class="page-link" href="pages/power.html">
+        <div class="pl-icon">⚡</div>
+        <div class="pl-name">POWER</div>
+      </a>
+      <a class="page-link" href="pages/signal.html">
+        <div class="pl-icon">📡</div>
+        <div class="pl-name">SIGNAL</div>
+      </a>
+      <a class="page-link" href="pages/chart.html">
+        <div class="pl-icon">📊</div>
+        <div class="pl-name">CHART</div>
+      </a>
+      <a class="page-link" href="pages/watchlist.html">
+        <div class="pl-icon">⭐</div>
+        <div class="pl-name">WATCHLIST</div>
+      </a>
+      <a class="page-link" href="pages/admin.html" style="grid-column:span 2;">
+        <div class="pl-icon">⚙️</div>
+        <div class="pl-name">ADMIN / CONTROL PANEL</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+// Loader percentage counter
+let pct = 0;
+const pctEl = document.getElementById('loadPct');
+const interval = setInterval(()=>{
+  pct += 4;
+  if (pct > 100) { pct = 100; clearInterval(interval); }
+  pctEl.textContent = pct + '%';
+}, 100);
+
+// Menu toggle
+function toggleMenu() {
+  document.getElementById('pageMenu').classList.toggle('show');
+}
+
+// If user taps anywhere on hero, skip to login immediately
+document.querySelector('.eye-logo').addEventListener('click', ()=>{
+  window.location.href = 'pages/login.html';
+});
+</script>
+
+</body>
+</html>
