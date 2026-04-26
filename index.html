@@ -4,49 +4,79 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>TRINETRA</title>
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700;800&family=Orbitron:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700;800&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/login.css">
 <link rel="stylesheet" href="css/pages.css">
 <style>
-  /* Extra safety styles to lock the layout */
   body, html {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background: #000;
+    margin: 0; padding: 0;
+    width: 100%; height: 100%;
+    overflow: hidden; background: #000;
   }
   .app {
     width: 100vw !important;
-    max-width: 100% !important;
     height: 100vh !important;
-    margin: 0 !important;
-    overflow: hidden !important;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
   }
+  
+  /* Top Bar for Logo and Exit Button */
+  .top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background: #000;
+    z-index: 100;
+  }
+
+  /* Small Round Exit Button */
+  .exit-btn-round {
+    width: 32px;
+    height: 32px;
+    border-radius: 50% !important; /* Round shape */
+    background: rgba(255, 61, 61, 0.1);
+    border: 1px solid #ff3d3d;
+    color: #ff3d3d;
+    font-size: 10px;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(255, 61, 61, 0.2);
+  }
+
+  .exit-btn-round:active {
+    background: #ff3d3d;
+    color: #000;
+  }
+
   .swiper {
-    display: flex !important;
-    width: 100% !important;
-    overflow-x: auto !important;
-    scroll-snap-type: x mandatory !important;
-    scrollbar-width: none !important;
+    flex: 1;
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
   }
-  .swiper::-webkit-scrollbar {
-    display: none;
-  }
-  /* Each page container must take full screen width */
-  #page-home-container, 
-  #page-signal-container, 
-  #page-power-container, 
-  #page-chart-container, 
-  #page-watchlist-container, 
-  #page-admin-container {
-    min-width: 100vw !important;
-    width: 100vw !important;
+  .swiper::-webkit-scrollbar { display: none; }
+
+  #page-home-container, #page-signal-container, #page-power-container, 
+  #page-chart-container, #page-watchlist-container, #page-admin-container {
+    min-width: 100vw;
     height: 100%;
-    scroll-snap-align: start !important;
-    flex-shrink: 0 !important;
+    scroll-snap-align: start;
+    flex-shrink: 0;
+  }
+
+  .nav {
+    flex-shrink: 0;
+    height: 65px; /* Fixed height for nav */
+    border-top: 1px solid #ff6d0040;
   }
 </style>
 </head>
@@ -57,6 +87,14 @@
 <div id="loginContainer"></div>
 
 <div class="app" id="appShell" style="display:none">
+  
+  <div class="top-header">
+    <div class="logo-area" style="color:#ff6d00; font-family:'Orbitron'; font-size:16px; font-weight:900;">
+      TRINETRA
+    </div>
+    <div class="exit-btn-round" onclick="location.reload()">X</div>
+  </div>
+
   <div class="swiper" id="swiper">
     <div id="page-home-container"></div>
     <div id="page-signal-container"></div>
@@ -64,15 +102,6 @@
     <div id="page-chart-container"></div>
     <div id="page-watchlist-container"></div>
     <div id="page-admin-container"></div>
-  </div>
-
-  <div class="dots">
-    <div class="dot active"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
   </div>
 
   <div class="nav">
@@ -103,9 +132,7 @@ async function loadPage(file, target) {
     const res = await fetch('pages/' + file);
     const html = await res.text();
     document.getElementById(target).innerHTML = html;
-  } catch (e) {
-    console.error('Load fail:', file, e);
-  }
+  } catch (e) { console.error('Load fail:', file); }
 }
 
 async function loadAllPages() {
@@ -118,21 +145,15 @@ async function loadAllPages() {
     loadPage('watchlist.html', 'page-watchlist-container'),
     loadPage('admin.html', 'page-admin-container'),
   ]);
-  const dataScript = document.createElement('script');
-  dataScript.src = 'js/data.js';
-  document.body.appendChild(dataScript);
-  
-  const mainScript = document.createElement('script');
-  mainScript.src = 'js/main.js';
-  document.body.appendChild(mainScript);
+  const ds = document.createElement('script'); ds.src = 'js/data.js'; document.body.appendChild(ds);
+  const ms = document.createElement('script'); ms.src = 'js/main.js'; document.body.appendChild(ms);
 }
 
 window.onload = loadAllPages;
 
 function navTo(idx) {
   const swiper = document.getElementById('swiper');
-  const width = window.innerWidth;
-  swiper.scrollTo({ left: idx * width, behavior: 'smooth' });
+  swiper.scrollTo({ left: idx * window.innerWidth, behavior: 'smooth' });
 }
 </script>
 
