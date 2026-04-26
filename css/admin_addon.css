@@ -1,0 +1,86 @@
+/* ═══════════════════════════════════════════════
+   ADMIN PAGE - extra styles
+   ADD this to your existing admin.css
+   (paste at the END of admin.css, don't replace)
+   ═══════════════════════════════════════════════ */
+
+.ad-section {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  padding: 12px;
+  margin-top: 10px;
+}
+.ad-section-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--gold);
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Broker list */
+.broker-list { display: flex; flex-direction: column; gap: 6px; }
+.broker-item {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 8px 10px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+}
+.broker-name { font-size: 11px; font-weight: 700; letter-spacing: 1px; }
+.broker-stat {
+  font-size: 9px; font-weight: 800; letter-spacing: 1.5px;
+  padding: 3px 7px;
+}
+.broker-stat.connected { color: var(--green); border: 1px solid var(--green); }
+.broker-stat.pending { color: var(--gold); border: 1px solid var(--gold); }
+
+/* Scanner toggles */
+.toggle-list { display: flex; flex-direction: column; gap: 4px; }
+.toggle-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+}
+.toggle-row:last-child { border: 0; }
+.toggle-name { font-size: 11px; font-weight: 600; }
+.toggle {
+  width: 38px; height: 20px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 10px !important;
+  position: relative;
+  cursor: pointer;
+  transition: 0.25s;
+}
+.toggle::after {
+  content: ''; position: absolute;
+  top: 2px; left: 2px;
+  width: 14px; height: 14px;
+  background: var(--dim);
+  border-radius: 50% !important;
+  transition: 0.25s;
+}
+.toggle.on { background: rgba(255, 109, 0, 0.2); border-color: var(--gold); }
+.toggle.on::after { left: 20px; background: var(--gold); box-shadow: 0 0 6px var(--gold); }
+
+/* Threshold list */
+.thr-list { display: flex; flex-direction: column; gap: 6px; }
+.thr-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 6px 0;
+  font-size: 11px;
+  border-bottom: 1px dashed var(--border);
+}
+.thr-row:last-child { border: 0; }
+.thr-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 800;
+  color: var(--gold);
+}
+
+/* About info */
+.about-info { font-size: 11px; line-height: 1.7; color: var(--text); }
+.about-info b { color: var(--gold); }

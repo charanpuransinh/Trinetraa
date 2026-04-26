@@ -1,0 +1,38 @@
+/* ═══════════════════════════════════════════════
+   CHART PAGE - extra styles
+   ADD this to your existing chart.css
+   (paste at the END of chart.css, don't replace)
+   ═══════════════════════════════════════════════ */
+
+.ch-mid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ch-pill {
+  background: var(--bg3);
+  border: 1px solid var(--bordergold);
+  padding: 5px 10px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 1px;
+}
+.ch-fv {
+  font-size: 9px;
+  color: var(--dim);
+  margin-top: 3px;
+  letter-spacing: 0.5px;
+}
+.ch-fv span { color: var(--gold); font-weight: 700; }
+
+/* Force chart SVG black background — fixes white chart issue */
+.ch-svg, #chSvg {
+  background: #000 !important;
+  display: block;
+  width: 100%;
+}
+.ch-wrap {
+  background: #000;
+  position: relative;
+}
