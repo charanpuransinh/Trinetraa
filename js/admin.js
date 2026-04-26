@@ -1,11 +1,11 @@
 /* ═══════════════════════════════════════════════
    ADMIN / MASTER CONTROL PAGE
-   Profile · P&L Tabs · Theme · Logout
+   Profile · P&L Tabs · Quick Nav · Logout
    ═══════════════════════════════════════════════ */
 
 let currentTab = '1D';
 
-// Switch P&L tab — called by admin.html onclick
+// Switch P&L tab
 function setTab(el, tab) {
   currentTab = tab;
   document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
@@ -28,14 +28,13 @@ function updatePnL() {
   setText('trades', data.trades);
   setText('acc', data.acc);
 
-  // Color P&L green if positive, red if negative
   const pnl = document.getElementById('pnlVal');
   if (pnl) {
     pnl.style.color = data.val.startsWith('+') ? 'var(--green)' : 'var(--red)';
   }
 }
 
-// Toggle Light/Dark theme — called by admin.html
+// Toggle Light/Dark theme
 function toggleTheme() {
   document.body.classList.toggle('light');
   const btn = document.getElementById('themeBtn');
@@ -43,13 +42,12 @@ function toggleTheme() {
     const isLight = document.body.classList.contains('light');
     btn.textContent = isLight ? '🌙 DARK' : '☀️ LIGHT';
   }
-  // Save preference
   try {
     localStorage.setItem('trinetra_theme', document.body.classList.contains('light') ? 'light' : 'dark');
   } catch (e) {}
 }
 
-// Logout — called by admin.html
+// Logout
 function doLogout() {
   if (typeof toast === 'function') toast('⏻ Logging out...');
   setTimeout(() => {
@@ -69,27 +67,10 @@ function restoreTheme() {
   } catch (e) {}
 }
 
-// Render Scanner Toggles
-function renderScannerToggles() {
-  const list = document.getElementById('scannerToggles');
-  if (!list) return;
-  if (typeof SCANNERS === 'undefined') return;
-
-  list.innerHTML = SCANNERS.map((sc, i) => {
-    const cleanName = sc.name.replace(/<br>/g, ' ');
-    return `
-      <div class="toggle-row" data-idx="${i}">
-        <span class="toggle-name">${sc.icon} ${cleanName}</span>
-        <div class="toggle on" onclick="this.classList.toggle('on')"></div>
-      </div>`;
-  }).join('');
-}
-
 // INIT
 function initAdmin() {
   restoreTheme();
   updatePnL();
-  renderScannerToggles();
 }
 
 if (document.readyState === 'loading') {
