@@ -2,23 +2,61 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>👁 TRINETRA</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>TRINETRA</title>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700;800&family=Orbitron:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/login.css">
 <link rel="stylesheet" href="css/pages.css">
+<style>
+  /* Extra safety styles to lock the layout */
+  body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #000;
+  }
+  .app {
+    width: 100vw !important;
+    max-width: 100% !important;
+    height: 100vh !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+  }
+  .swiper {
+    display: flex !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    scrollbar-width: none !important;
+  }
+  .swiper::-webkit-scrollbar {
+    display: none;
+  }
+  /* Each page container must take full screen width */
+  #page-home-container, 
+  #page-signal-container, 
+  #page-power-container, 
+  #page-chart-container, 
+  #page-watchlist-container, 
+  #page-admin-container {
+    min-width: 100vw !important;
+    width: 100vw !important;
+    height: 100%;
+    scroll-snap-align: start !important;
+    flex-shrink: 0 !important;
+  }
+</style>
 </head>
 <body>
 
 <div class="toast" id="toast"></div>
 
-<!-- LOGIN SCREEN -->
 <div id="loginContainer"></div>
 
-<!-- MAIN APP -->
 <div class="app" id="appShell" style="display:none">
-  <!-- SWIPE CONTAINER WITH 6 PAGES -->
   <div class="swiper" id="swiper">
     <div id="page-home-container"></div>
     <div id="page-signal-container"></div>
@@ -28,7 +66,6 @@
     <div id="page-admin-container"></div>
   </div>
 
-  <!-- PAGE INDICATOR DOTS -->
   <div class="dots">
     <div class="dot active"></div>
     <div class="dot"></div>
@@ -38,16 +75,15 @@
     <div class="dot"></div>
   </div>
 
-  <!-- BOTTOM NAV - 6 ICONS -->
   <div class="nav">
     <button class="nav-btn active" onclick="navTo(0)">
       <div class="nav-ico">🏠</div><div class="nav-lbl">HOME</div>
     </button>
     <button class="nav-btn" onclick="navTo(1)">
-      <div class="nav-ico">📡</div><div class="nav-lbl">SIGNAL</div>
+      <div class="nav-ico">📡</div><div class="nav-lbl">SIG</div>
     </button>
     <button class="nav-btn" onclick="navTo(2)">
-      <div class="nav-ico">⚡</div><div class="nav-lbl">POWER</div>
+      <div class="nav-ico">⚡</div><div class="nav-lbl">PWR</div>
     </button>
     <button class="nav-btn" onclick="navTo(3)">
       <div class="nav-ico">📊</div><div class="nav-lbl">CHART</div>
@@ -61,7 +97,6 @@
   </div>
 </div>
 
-<!-- LOAD PAGES DYNAMICALLY -->
 <script>
 async function loadPage(file, target) {
   try {
@@ -83,18 +118,22 @@ async function loadAllPages() {
     loadPage('watchlist.html', 'page-watchlist-container'),
     loadPage('admin.html', 'page-admin-container'),
   ]);
-  // Now load app logic
   const dataScript = document.createElement('script');
   dataScript.src = 'js/data.js';
   document.body.appendChild(dataScript);
-  dataScript.onload = () => {
-    const appScript = document.createElement('script');
-    appScript.src = 'js/app.js';
-    document.body.appendChild(appScript);
-  };
+  
+  const mainScript = document.createElement('script');
+  mainScript.src = 'js/main.js';
+  document.body.appendChild(mainScript);
 }
 
-loadAllPages();
+window.onload = loadAllPages;
+
+function navTo(idx) {
+  const swiper = document.getElementById('swiper');
+  const width = window.innerWidth;
+  swiper.scrollTo({ left: idx * width, behavior: 'smooth' });
+}
 </script>
 
 </body>
