@@ -1,0 +1,69 @@
+name: 🚀 Trishul Auto-Deploy to AWS EC2
+
+on:
+  push:
+    branches:
+      - main          # triggers on push to main branch
+      - master        # also support master branch
+
+jobs:
+  deploy:
+    name: Deploy to EC2
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      # ── Step 1: Pull your code ──────────────────────────────────────────
+      - name: ✅ Checkout Code
+        uses: actions/checkout@v4
+
+      # ── Step 2: SSH into your EC2 and deploy ────────────────────────────
+      - name: 🔐 Setup SSH Key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
+
+      - name: 📦 Deploy to EC2 via SSH
+        run: |
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
+            ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} << 'ENDSSH'
+
+            set -e   # stop on any error
+
+            echo "──────────────────────────────────────────"
+            echo "  TRISHUL DEPLOY — $(date)"
+            echo "──────────────────────────────────────────"
+
+            # ── Navigate to project directory ──
+            cd /home/ubuntu/trishul-pro
+
+            # ── Pull latest code ──
+            git pull origin main || git pull origin master
+
+            # ── Rebuild and restart containers (zero-downtime) ──
+            docker compose pull
+            docker compose up -d --build --remove-orphans
+
+            # ── Clean up old Docker images ──
+            docker image prune -f
+
+            # ── Health check: wait and verify containers are up ──
+            sleep 5
+            docker compose ps
+
+            echo ""
+            echo "✅ DEPLOY COMPLETE — All containers running!"
+            echo "──────────────────────────────────────────"
+
+          ENDSSH
+
+      # ── Step 3: Notify success or failure ────────────────────────────────
+      - name: ✅ Deploy Success Notification
+        if: success()
+        run: echo "::notice title=Deploy Success::Trishul Pro deployed to EC2 successfully!"
+
+      - name: ❌ Deploy Failure Notification
+        if: failure()
+        run: echo "::error title=Deploy Failed::Check the logs above for details."
